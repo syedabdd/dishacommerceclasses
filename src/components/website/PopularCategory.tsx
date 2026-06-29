@@ -129,9 +129,9 @@ export default function PopularCategory() {
             viewport={{ once: true }}
           >
             <div
-              className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-amber-400 !text-white text-sm font-bold shadow-md mb-6"
+              className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-[#c0202a] !text-white text-sm font-bold shadow-md mb-6"
               style={{
-                background: "linear-gradient(135deg, #f59e0b 0%, #ea580c 100%)",
+                background: "linear-gradient(135deg, #1a2e6c 0%, #c0202a 100%)",
               }}
             >
               <Sparkles className="w-4 h-4 fill-current" />
@@ -145,8 +145,8 @@ export default function PopularCategory() {
               Popular{" "}
               <span
                 style={{
-                  background:
-                    "linear-gradient(135deg, #f59e0b 0%, #ea580c 100%)",
+                  backgroundImage:
+                    "linear-gradient(135deg, #1a2e6c 0%, #c0202a 100%)",
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent",
                   backgroundClip: "text",
@@ -192,15 +192,15 @@ export default function PopularCategory() {
                     backgroundColor: "var(--bg-card)",
                   }}
                 >
-                  {/* Hover Gradient Overlay */}
-                  <div className="absolute inset-0 bg-linear-to-b from-transparent to-amber-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
+                  {/* Hover Background Gradient */}
+                  <div className="absolute inset-0 bg-linear-to-b from-transparent to-[#c0202a]/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
-                  <div className="relative z-10 w-16 h-16 flex items-center justify-center rounded-2xl bg-amber-50 group-hover:bg-amber-500 transition-colors duration-500 shadow-inner">
-                    <Icon className="w-8 h-8 text-amber-500 group-hover:text-white transition-colors duration-500" />
+                  <div className="relative z-10 w-16 h-16 flex items-center justify-center rounded-2xl bg-[#c0202a]/10 group-hover:bg-[#c0202a] transition-colors duration-500 shadow-inner">
+                    <Icon className="w-8 h-8 text-[#c0202a] group-hover:text-white transition-colors duration-500" />
                   </div>
 
                   <span
-                    className="relative z-10 font-bold text-lg tracking-wide text-center group-hover:text-amber-600 transition-colors duration-300"
+                    className="relative z-10 font-bold text-lg tracking-wide text-center group-hover:text-[#c0202a] transition-colors duration-300"
                     style={{ color: "var(--text-primary)" }}
                   >
                     {category.title}

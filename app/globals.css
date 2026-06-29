@@ -125,15 +125,19 @@ a {
   --border-color: #e2e8f0;
   --nav-bg: rgba(255, 255, 255, 0.92);
   --nav-border: rgba(15, 23, 42, 0.12);
-  --disha-navy-text: #0f172a;
-  --disha-badge-bg: rgba(245, 158, 11, 0.15);
-  --disha-badge-border: rgba(245, 158, 11, 0.3);
+  --disha-navy-text: #1a2e6c;
+  --disha-badge-bg: rgba(26, 46, 108, 0.08);
+  --disha-badge-border: rgba(26, 46, 108, 0.2);
 }
 
 /* Apply root tokens to body */
 body {
   background-color: var(--bg-page);
   color: var(--text-primary);
+}
+
+.eco-swiper .swiper-wrapper {
+  transition-timing-function: linear !important;
 }
 
 /* ──────────────────────────────────────────────────────────────────
@@ -224,6 +228,6 @@ body {
    NAVBAR LINK HOVER — replaces JS onMouseEnter/onMouseLeave
    ────────────────────────────────────────────────────────────────── */
 .nav-link:hover {
-  color: var(--text-primary) !important;
-  background-color: rgba(245, 158, 11, 0.1);
+  color: #1a2e6c !important;
+  background-color: rgba(26, 46, 108, 0.05);
 }

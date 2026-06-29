@@ -15,22 +15,22 @@ const gradients = [
     border: "rgba(30,41,59,0.25)",
   },
   {
-    from: "#d97706", // amber-600
-    to: "#f59e0b", // amber-500
+    from: "#c0202a", // red-600
+    to: "#c0202a", // red-600
     glow: "rgba(217,119,6,0.18)",
     border: "rgba(217,119,6,0.25)",
   },
   {
     from: "#0f172a", // slate-900
-    to: "#f59e0b", // amber-500
+    to: "#c0202a", // red-600
     glow: "rgba(15,23,42,0.18)",
     border: "rgba(15,23,42,0.25)",
   },
   {
-    from: "#f59e0b", // amber-500
+    from: "#c0202a", // red-600
     to: "#1e293b", // slate-800
-    glow: "rgba(245,158,11,0.18)",
-    border: "rgba(245,158,11,0.25)",
+    glow: "rgba(192,32,42,0.18)",
+    border: "rgba(192,32,42,0.25)",
   },
 ];
 
@@ -83,7 +83,7 @@ export default function TrustStats() {
           className="relative rounded-3xl overflow-hidden"
         >
           {/* Outer glow */}
-          <div className="absolute -inset-1 rounded-3xl blur-xl" style={{ background: "linear-gradient(90deg, rgba(15,23,42,0.20), rgba(245,158,11,0.10), rgba(15,23,42,0.20))" }} />
+          <div className="absolute -inset-1 rounded-3xl blur-xl" style={{ background: "linear-gradient(90deg, rgba(15,23,42,0.20), rgba(192,32,42,0.10), rgba(15,23,42,0.20))" }} />
 
           {/* Glass panel */}
           <div className="relative backdrop-blur-2xl rounded-3xl shadow-[0_20px_60px_rgba(0,0,0,0.08)]" style={{ backgroundColor: "var(--bg-card)", border: "1px solid var(--border-color)" }}>

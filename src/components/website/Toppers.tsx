@@ -60,11 +60,11 @@ export default function Toppers() {
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div
           className="absolute top-0 right-1/4 w-[500px] h-[500px] rounded-full blur-[120px] opacity-20"
-          style={{ background: "linear-gradient(135deg, #ea580c, #f59e0b)" }}
+          style={{ background: "linear-gradient(135deg, #1a2e6c, #c0202a)" }}
         />
         <div
           className="absolute bottom-0 left-1/4 w-[600px] h-[600px] rounded-full blur-[150px] opacity-10"
-          style={{ background: "#f59e0b" }}
+          style={{ background: "#c0202a" }}
         />
       </div>
 
@@ -82,7 +82,7 @@ export default function Toppers() {
                 borderColor: "var(--border-color)",
               }}
             >
-              <Trophy size={16} className="text-amber-500" />
+              <Trophy size={16} style={{ color: "#c0202a" }} />
               <span className="text-sm font-bold uppercase tracking-widest text-slate-700">
                 Wall of Fame
               </span>
@@ -100,11 +100,11 @@ export default function Toppers() {
               <span className="relative inline-block mt-2 lg:mt-0">
                 <span
                   className="relative z-10 text-transparent bg-clip-text"
-                  style={{ backgroundImage: "linear-gradient(135deg, #f59e0b 0%, #ea580c 100%)" }}
+                  style={{ backgroundImage: "linear-gradient(135deg, #1a2e6c 0%, #c0202a 100%)" }}
                 >
                   Toppers
                 </span>
-                <Sparkles className="absolute -top-6 -right-8 w-8 h-8 text-amber-500 opacity-60 animate-pulse" />
+                <Sparkles className="absolute -top-6 -right-8 w-8 h-8 opacity-60 animate-pulse" style={{ color: "#c0202a" }} />
               </span>
             </motion.h2>
           </div>
@@ -117,7 +117,7 @@ export default function Toppers() {
           >
              <button
                 ref={prevRef}
-                className="topper-prev w-14 h-14 rounded-full shadow-lg flex items-center justify-center hover:scale-110 hover:bg-amber-500 hover:text-white transition-all duration-300"
+                className="topper-prev w-14 h-14 rounded-full shadow-lg flex items-center justify-center hover:scale-110 hover:bg-[#c0202a] hover:text-white transition-all duration-300"
                 style={{ backgroundColor: "var(--bg-card)", border: "1px solid var(--border-color)", color: "var(--text-primary)" }}
               >
                 <ChevronLeft size={24} />
@@ -125,7 +125,7 @@ export default function Toppers() {
 
               <button
                 ref={nextRef}
-                className="topper-next w-14 h-14 rounded-full shadow-lg flex items-center justify-center hover:scale-110 hover:bg-amber-500 hover:text-white transition-all duration-300"
+                className="topper-next w-14 h-14 rounded-full shadow-lg flex items-center justify-center hover:scale-110 hover:bg-[#c0202a] hover:text-white transition-all duration-300"
                 style={{ backgroundColor: "var(--bg-card)", border: "1px solid var(--border-color)", color: "var(--text-primary)" }}
               >
                 <ChevronRight size={24} />
@@ -172,14 +172,14 @@ export default function Toppers() {
                     <div className="absolute inset-0 bg-linear-to-t from-slate-900/80 via-transparent to-transparent opacity-60"></div>
                     
                     {/* Score Badge */}
-                    <div className="absolute bottom-4 left-4 inline-block px-3 py-1.5 rounded-lg font-bold text-sm shadow-md" style={{ backgroundColor: "#f59e0b", color: "#fff" }}>
+                    <div className="absolute bottom-4 left-4 inline-block px-3 py-1.5 rounded-lg font-bold text-sm shadow-md" style={{ backgroundColor: "#1a2e6c", color: "#fff" }}>
                       Score: {topper.score}
                     </div>
                   </div>
 
                   {/* Content Side (Bottom) */}
                   <div className="p-6 md:p-8 flex flex-col grow relative bg-[var(--bg-card)]">
-                     <Quote className="absolute top-6 right-6 w-12 h-12 text-amber-500 opacity-10" />
+                     <Quote className="absolute top-6 right-6 w-12 h-12 opacity-10" style={{ color: "#c0202a" }} />
 
                      <p className="text-base md:text-lg font-medium leading-relaxed italic mb-8 flex-grow" style={{ color: "var(--text-secondary)" }}>
                        "{topper.quote}"
@@ -188,14 +188,14 @@ export default function Toppers() {
                      <div className="mt-auto flex items-center justify-between border-t border-[var(--border-color)] pt-5">
                         <div>
                            <h3 className="text-xl font-black" style={{ color: "var(--text-primary)" }}>{topper.name}</h3>
-                           <p className="text-xs font-bold uppercase tracking-widest mt-1 text-amber-600">Bihar Board Topper</p>
+                           <p className="text-xs font-bold uppercase tracking-widest mt-1 text-[#c0202a]">Bihar Board Topper</p>
                         </div>
                         <a 
                           href={topper.link} 
                           target="_blank" 
                           rel="noopener noreferrer"
                           className="w-10 h-10 rounded-full flex items-center justify-center transition-all group-hover:scale-110 shadow-md"
-                          style={{ background: "linear-gradient(135deg, #f59e0b, #ea580c)", color: "white" }}
+                          style={{ background: "linear-gradient(135deg, #1a2e6c, #c0202a)", color: "white" }}
                         >
                           <ArrowRight className="w-4 h-4" />
                         </a>

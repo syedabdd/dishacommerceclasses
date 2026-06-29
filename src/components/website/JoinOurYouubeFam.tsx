@@ -65,7 +65,7 @@ export default function JoinOurYoutubeFam() {
       className="py-24 relative overflow-hidden"
       style={{ backgroundColor: "var(--bg-section)" }}
     >
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-amber-500/5 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#c0202a]/5 rounded-full blur-[100px] pointer-events-none" />
 
       <div className="max-w-4xl mx-auto px-4 relative z-10 text-center">
         {/* Heading */}
@@ -87,7 +87,7 @@ export default function JoinOurYoutubeFam() {
             Join The{" "}
             <span
               style={{
-                background: "linear-gradient(135deg, #1e293b 0%, #f59e0b 100%)",
+                background: "linear-gradient(135deg, #1a2e6c 0%, #c0202a 100%)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
                 backgroundClip: "text",
@@ -120,7 +120,7 @@ export default function JoinOurYoutubeFam() {
               rel="noopener noreferrer"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className={`flex items-center gap-4 px-6 md:px-8 py-4 rounded-full shadow-md transition-shadow hover:shadow-xl ${channel.featured ? "border-2 border-amber-500 bg-amber-50/50" : ""}`}
+              className={`flex items-center gap-4 px-6 md:px-8 py-4 rounded-full shadow-md transition-shadow hover:shadow-xl ${channel.featured ? "border-2 border-[#c0202a] bg-[#c0202a]/5" : ""}`}
               style={{
                 backgroundColor: channel.featured
                   ? undefined
@@ -162,7 +162,7 @@ export default function JoinOurYoutubeFam() {
             rel="noopener noreferrer"
             className="group inline-flex items-center gap-3 px-8 py-4 rounded-2xl !text-white font-bold shadow-xl hover:-translate-y-1 transition-all duration-300"
             style={{
-              background: "linear-gradient(135deg, #1e293b 0%, #f59e0b 100%)",
+              background: "linear-gradient(135deg, #1a2e6c 0%, #c0202a 100%)",
               boxShadow: "0 8px 25px rgba(15,23,42,0.35)",
             }}
           >

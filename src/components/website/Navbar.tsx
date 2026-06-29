@@ -29,7 +29,7 @@ const NavLink = ({
   onClick?: () => void;
 }) => {
   const cls = `relative px-3 py-2 text-sm font-medium transition-colors duration-200 
-    ${active ? "text-amber-600" : "text-slate-700 hover:text-amber-600"}`;
+    ${active ? "text-[#1a2e6c]" : "text-slate-700 hover:text-[#1a2e6c]"}`;
 
   return href.startsWith("http") ? (
     <a
@@ -41,14 +41,14 @@ const NavLink = ({
     >
       {label}
       {active && (
-        <span className="absolute bottom-0 left-3 right-3 h-0.5 bg-amber-500 rounded-full" />
+        <span className="absolute bottom-0 left-3 right-3 h-0.5 bg-linear-to-r from-[#1a2e6c] to-[#c0202a] rounded-full" />
       )}
     </a>
   ) : (
     <Link href={href} className={cls} onClick={onClick}>
       {label}
       {active && (
-        <span className="absolute bottom-0 left-3 right-3 h-0.5 bg-amber-500 rounded-full" />
+        <span className="absolute bottom-0 left-3 right-3 h-0.5 bg-linear-to-r from-[#1a2e6c] to-[#c0202a] rounded-full" />
       )}
     </Link>
   );
@@ -123,7 +123,7 @@ export default function Navbar() {
 
             {/* More dropdown */}
             <div className="relative group ml-1">
-              <button className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-slate-700 hover:text-amber-600 transition-colors">
+              <button className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-slate-700 hover:text-[#1a2e6c] transition-colors">
                 More{" "}
                 <ChevronDown className="w-3.5 h-3.5 group-hover:rotate-180 transition-transform duration-200" />
               </button>
@@ -136,7 +136,7 @@ export default function Navbar() {
                         href={l.href}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="block px-4 py-2.5 text-sm text-slate-600 hover:bg-amber-50 hover:text-amber-700 transition-colors"
+                        className="block px-4 py-2.5 text-sm text-slate-600 hover:bg-[#c0202a]/10 hover:text-[#1a2e6c] transition-colors"
                       >
                         {l.label}
                       </a>
@@ -144,7 +144,7 @@ export default function Navbar() {
                       <Link
                         key={l.href}
                         href={l.href}
-                        className="block px-4 py-2.5 text-sm text-slate-600 hover:bg-amber-50 hover:text-amber-700 transition-colors"
+                        className="block px-4 py-2.5 text-sm text-slate-600 hover:bg-[#c0202a]/10 hover:text-[#1a2e6c] transition-colors"
                       >
                         {l.label}
                       </Link>
@@ -158,7 +158,7 @@ export default function Navbar() {
           {/* Desktop CTA */}
           <a
             href="tel:+917700879453"
-            className="hidden lg:flex items-center gap-2 bg-amber-500 hover:bg-amber-600 text-white text-sm font-semibold px-4 py-2.5 rounded-xl transition-colors shadow-md shadow-amber-200"
+            className="hidden lg:flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white text-sm font-semibold px-4 py-2.5 rounded-xl transition-colors shadow-md shadow-[#1a2e6c]/20"
           >
             <Phone className="w-4 h-4" />
             <span>+91 77008 79453</span>
@@ -233,7 +233,7 @@ export default function Navbar() {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => setMenuOpen(false)}
-                className="block px-3 py-2.5 text-sm font-medium text-slate-600 hover:text-amber-600 hover:bg-amber-50 rounded-lg transition-colors"
+                className="block px-3 py-2.5 text-sm font-medium text-slate-600 hover:text-[#1a2e6c] hover:bg-[#c0202a]/10 rounded-lg transition-colors"
               >
                 {l.label}
               </a>
@@ -242,7 +242,7 @@ export default function Navbar() {
                 key={l.href}
                 href={l.href}
                 onClick={() => setMenuOpen(false)}
-                className="block px-3 py-2.5 text-sm font-medium text-slate-600 hover:text-amber-600 hover:bg-amber-50 rounded-lg transition-colors"
+                className="block px-3 py-2.5 text-sm font-medium text-slate-600 hover:text-[#1a2e6c] hover:bg-[#c0202a]/10 rounded-lg transition-colors"
               >
                 {l.label}
               </Link>
@@ -254,7 +254,7 @@ export default function Navbar() {
         <div className="p-4 border-t border-slate-100">
           <a
             href="tel:+917700879453"
-            className="flex items-center justify-center gap-2 w-full py-3 bg-amber-500 hover:bg-amber-600 text-white text-sm font-semibold rounded-xl transition-colors"
+            className="flex items-center justify-center gap-2 w-full py-3 bg-green-600 hover:bg-green-700 text-white text-sm font-semibold rounded-xl transition-colors"
           >
             <Phone className="w-4 h-4" />
             +91 77008 79453

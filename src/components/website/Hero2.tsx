@@ -38,7 +38,7 @@ export default function Hero2() {
       />
       <div
         className="absolute bottom-[-100px] left-[-80px] w-[500px] h-[500px] rounded-full blur-[130px] pointer-events-none"
-        style={{ backgroundColor: "rgba(245,158,11,0.12)" }}
+        style={{ backgroundColor: "rgba(192,32,42,0.12)" }}
       />
       <div
         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] rounded-full blur-[100px] pointer-events-none"
@@ -69,7 +69,7 @@ export default function Hero2() {
             border: "1px solid var(--disha-badge-border)",
           }}
         >
-          <Sparkles size={15} style={{ color: "#f59e0b" }} />
+          <Sparkles size={15} style={{ color: "#c0202a" }} />
           <span
             className="text-sm font-semibold"
             style={{ color: "var(--disha-navy-text)" }}
@@ -91,7 +91,7 @@ export default function Hero2() {
           <span
             className="block mt-2"
             style={{
-              background: "linear-gradient(135deg, #f59e0b 0%, #ea580c 100%)",
+              background: "linear-gradient(135deg, #1a2e6c, #c0202a)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               backgroundClip: "text",
@@ -133,8 +133,8 @@ export default function Hero2() {
               whileTap={{ scale: 0.95 }}
               className="group cursor-pointer relative w-full sm:w-auto overflow-hidden text-white font-bold px-10 py-5 rounded-2xl transition-all duration-300"
               style={{
-                background: "linear-gradient(135deg, #f59e0b 0%, #ea580c 100%)",
-                boxShadow: "0 10px 40px rgba(245,158,11,0.30)",
+                background: "linear-gradient(135deg, #1a2e6c, #c0202a)",
+                boxShadow: "0 10px 40px rgba(192,32,42,0.30)",
               }}
             >
               <span className="absolute inset-0 -translate-x-full group-hover:translate-x-full bg-linear-to-r from-transparent via-white/20 to-transparent transition-transform duration-700 ease-in-out" />
@@ -160,7 +160,7 @@ export default function Hero2() {
               }}
             >
               <span className="relative flex items-center justify-center gap-3">
-                <Play size={20} className="text-amber-500" />
+                <Play size={20} style={{ color: "#c0202a" }} />
                 Download App
               </span>
             </motion.button>
@@ -186,7 +186,7 @@ export default function Hero2() {
             priority={true}
           />
           {/* Glowing backdrop for the image to make it pop */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] sm:w-[400px] h-[300px] sm:h-[400px] rounded-full bg-amber-500/10 blur-3xl -z-10" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] sm:w-[400px] h-[300px] sm:h-[400px] rounded-full bg-[#c0202a]/10 blur-3xl -z-10" />
         </div>
       </motion.div>
     </section>

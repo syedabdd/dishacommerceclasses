@@ -74,13 +74,13 @@ function FooterLink({
         >
           <span
             className="w-1.5 h-1.5 rounded-full shrink-0 transition-all duration-300 group-hover:scale-150"
-            style={{ backgroundColor: "#f59e0b" }}
+            style={{ backgroundColor: "#c0202a" }}
           />
           <span className="relative">
             {label}
             <span
               className="absolute -bottom-0.5 left-0 h-px w-0 group-hover:w-full transition-all duration-300"
-              style={{ backgroundColor: "#f59e0b" }}
+              style={{ backgroundColor: "#c0202a" }}
             />
           </span>
           <ExternalLink className="w-3 h-3 opacity-0 group-hover:opacity-60 transition-opacity ml-auto shrink-0" />
@@ -92,13 +92,13 @@ function FooterLink({
         >
           <span
             className="w-1.5 h-1.5 rounded-full shrink-0 transition-all duration-300 group-hover:scale-150"
-            style={{ backgroundColor: "#f59e0b" }}
+            style={{ backgroundColor: "#c0202a" }}
           />
           <span className="relative">
             {label}
             <span
               className="absolute -bottom-0.5 left-0 h-px w-0 group-hover:w-full transition-all duration-300"
-              style={{ backgroundColor: "#f59e0b" }}
+              style={{ backgroundColor: "#c0202a" }}
             />
           </span>
         </Link>
@@ -113,7 +113,7 @@ function FooterHeading({ children }: { children: React.ReactNode }) {
     <h4 className="text-white font-bold text-base uppercase tracking-widest mb-6 flex items-center gap-3">
       <span
         className="inline-block h-5 w-1 rounded-full shrink-0"
-        style={{ background: "linear-gradient(180deg, #1e293b, #f59e0b)" }}
+        style={{ background: "linear-gradient(180deg, #1a2e6c, #c0202a)" }}
       />
       {children}
     </h4>
@@ -153,7 +153,7 @@ function StatPill({
     >
       <div
         className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0"
-        style={{ background: "linear-gradient(135deg, #1e293b, #f59e0b)" }}
+        style={{ background: "linear-gradient(135deg, #1a2e6c, #c0202a)" }}
       >
         <Icon className="w-4 h-4 text-white" />
       </div>
@@ -301,7 +301,7 @@ const Footer = () => {
         className="h-1 w-full"
         style={{
           background:
-            "linear-gradient(90deg, #1e293b 0%, #f59e0b 50%, #1e293b 100%)",
+            "linear-gradient(90deg, #1a2e6c 0%, #c0202a 50%, #1a2e6c 100%)",
         }}
       />
 
@@ -334,7 +334,7 @@ const Footer = () => {
                 whileTap={{ scale: 0.97 }}
                 className="group relative overflow-hidden flex items-center justify-center px-6 py-3 rounded-full text-white font-bold text-sm shadow-lg transition-shadow duration-300"
                 style={{
-                  background: "linear-gradient(135deg, #1e293b, #f59e0b)",
+                  background: "linear-gradient(135deg, #1a2e6c, #c0202a)",
                   boxShadow: "0 4px 20px rgba(15,23,42,0.40)",
                 }}
               >
@@ -345,7 +345,7 @@ const Footer = () => {
                 <span
                   className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-0"
                   style={{
-                    background: "linear-gradient(135deg, #334155, #f59e0b)",
+                    background: "linear-gradient(135deg, #1a2e6c, #c0202a)",
                   }}
                 />
               </motion.a>
@@ -360,7 +360,7 @@ const Footer = () => {
                 }}
                 onMouseEnter={(e) =>
                   ((e.currentTarget as HTMLElement).style.borderColor =
-                    "#f59e0b")
+                    "#c0202a")
                 }
                 onMouseLeave={(e) =>
                   ((e.currentTarget as HTMLElement).style.borderColor =
@@ -454,7 +454,7 @@ const Footer = () => {
                   className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform"
                   style={{ backgroundColor: "rgba(245,158,11,0.25)" }}
                 >
-                  <Mail className="w-3.5 h-3.5 text-amber-400" />
+                  <Mail className="w-3.5 h-3.5 text-red-400" />
                 </div>
                 <span className="truncate">support@dishaonlineclasses.com</span>
               </motion.a>
@@ -466,7 +466,7 @@ const Footer = () => {
                   className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0"
                   style={{ backgroundColor: "rgba(245,158,11,0.25)" }}
                 >
-                  <MapPin className="w-3.5 h-3.5 text-amber-400" />
+                  <MapPin className="w-3.5 h-3.5 text-red-400" />
                 </div>
                 Bihar, India
               </motion.div>
@@ -528,7 +528,7 @@ const Footer = () => {
                 }}
                 onMouseEnter={(e) => {
                   (e.currentTarget as HTMLElement).style.borderColor =
-                    "#f59e0b";
+                    "#c0202a";
                   (e.currentTarget as HTMLElement).style.backgroundColor =
                     "rgba(245,158,11,0.12)";
                 }}
@@ -543,7 +543,7 @@ const Footer = () => {
                   <div
                     className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0"
                     style={{
-                      background: "linear-gradient(135deg, #1e293b, #f59e0b)",
+                      background: "linear-gradient(135deg, #1a2e6c, #c0202a)",
                     }}
                   >
                     <HelpCircle className="w-4 h-4 text-white" />
@@ -552,7 +552,7 @@ const Footer = () => {
                     <p className="text-white font-semibold text-sm">
                       Got a doubt?
                     </p>
-                    <div className="text-amber-400 text-xs font-medium flex items-center gap-1 mt-1 group-hover:text-amber-300 transition-colors">
+                    <div className="text-red-400 text-xs font-medium flex items-center gap-1 mt-1 group-hover:text-red-300 transition-colors">
                       Ask your doubt now
                       <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
                     </div>
@@ -618,7 +618,7 @@ const Footer = () => {
                 whileTap={{ scale: 0.97 }}
                 className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-white! text-xs font-semibold"
                 style={{
-                  background: "linear-gradient(135deg, #1e293b, #f59e0b)",
+                  background: "linear-gradient(135deg, #1a2e6c, #c0202a)",
                 }}
               >
                 Get the App
@@ -656,7 +656,7 @@ const Footer = () => {
             aria-label="Scroll to top"
             className="fixed bottom-8 right-6 z-50 w-11 h-11 rounded-full text-white shadow-2xl flex items-center justify-center"
             style={{
-              background: "linear-gradient(135deg, #1e293b, #f59e0b)",
+              background: "linear-gradient(135deg, #1a2e6c, #c0202a)",
               boxShadow: "0 4px 20px rgba(245,158,11,0.50)",
             }}
           >

@@ -37,19 +37,19 @@ export default function Blog() {
 
   return (
     <section className="py-20 bg-slate-50 relative">
-      <div className="absolute top-0 right-0 w-1/3 h-[400px] bg-amber-50 rounded-bl-[100px] opacity-60 pointer-events-none" />
+      <div className="absolute top-0 right-0 w-1/3 h-[400px] bg-red-50 rounded-bl-[100px] opacity-60 pointer-events-none" />
 
       <div className="container mx-auto px-4 lg:px-8 relative z-10">
         
         {/* Header & Search */}
         <div className="flex flex-col md:flex-row justify-between items-end gap-6 mb-12">
           <div>
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-amber-200 bg-amber-50 text-amber-600 text-sm font-bold shadow-sm mb-4">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-red-200 bg-red-50 text-red-600 text-sm font-bold shadow-sm mb-4">
               <TrendingUp className="w-4 h-4" />
               Editorial
             </div>
             <h2 className="text-4xl md:text-5xl font-black text-slate-900 leading-tight">
-              Latest <span className="text-amber-500">Insights</span>
+              Latest <span className="text-red-600">Insights</span>
             </h2>
           </div>
 
@@ -60,7 +60,7 @@ export default function Blog() {
               placeholder="Search articles..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full h-14 pl-12 pr-4 rounded-2xl border-2 border-slate-200 bg-white focus:outline-none focus:border-amber-400 focus:ring-4 focus:ring-amber-500/10 transition-all font-medium"
+              className="w-full h-14 pl-12 pr-4 rounded-2xl border-2 border-slate-200 bg-white focus:outline-none focus:border-red-500 focus:ring-4 focus:ring-red-600/10 transition-all font-medium"
             />
           </div>
         </div>
@@ -68,7 +68,7 @@ export default function Blog() {
         {/* Loading */}
         {loading ? (
           <div className="flex justify-center py-24">
-            <div className="w-12 h-12 rounded-full border-4 border-amber-500 border-t-transparent animate-spin" />
+            <div className="w-12 h-12 rounded-full border-4 border-red-600 border-t-transparent animate-spin" />
           </div>
         ) : filteredBlogs.length === 0 ? (
           <div className="bg-white rounded-3xl border border-slate-200 p-16 text-center shadow-sm">
@@ -97,7 +97,7 @@ export default function Blog() {
                       />
                       <div className="absolute inset-0 bg-linear-to-t from-slate-900/80 via-slate-900/20 to-transparent opacity-80 group-hover:opacity-100 transition-opacity" />
                       <div className="absolute bottom-6 left-6 right-6">
-                         <span className="inline-block bg-amber-500 text-white text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full mb-3 shadow-sm">
+                         <span className="inline-block bg-red-600 text-white text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full mb-3 shadow-sm">
                             {featuredBlog.category || "Featured"}
                          </span>
                          <h3 className="text-2xl md:text-3xl font-bold text-white leading-snug line-clamp-3">
@@ -114,15 +114,15 @@ export default function Blog() {
                       <div className="flex flex-wrap items-center justify-between gap-4 pt-6 border-t border-slate-100">
                         <div className="flex items-center gap-4 text-sm font-medium text-slate-500">
                            <div className="flex items-center gap-1.5">
-                             <Calendar className="w-4 h-4 text-amber-500" />
+                             <Calendar className="w-4 h-4 text-red-600" />
                              {new Date(featuredBlog.created_at).toLocaleDateString("en-GB")}
                            </div>
                            <div className="flex items-center gap-1.5">
-                             <Clock className="w-4 h-4 text-amber-500" />
+                             <Clock className="w-4 h-4 text-red-600" />
                              {Math.max(1, Math.ceil((featuredBlog.content?.replace(/<[^>]*>?/gm, "").length || 0) / 1000))} min read
                            </div>
                         </div>
-                        <div className="flex items-center gap-2 text-slate-900 font-bold group-hover:text-amber-500 transition-colors">
+                        <div className="flex items-center gap-2 text-slate-900 font-bold group-hover:text-red-600 transition-colors">
                            Read Article <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                         </div>
                       </div>
@@ -157,11 +157,11 @@ export default function Blog() {
 
                       {/* Content */}
                       <div className="flex flex-col justify-center grow">
-                        <span className="text-amber-500 text-xs font-bold uppercase tracking-wider mb-2 block">
+                        <span className="text-red-600 text-xs font-bold uppercase tracking-wider mb-2 block">
                           {blog.category || "Education"}
                         </span>
                         
-                        <h4 className="text-base md:text-lg font-bold text-slate-900 mb-2 line-clamp-2 group-hover:text-amber-500 transition-colors leading-snug">
+                        <h4 className="text-base md:text-lg font-bold text-slate-900 mb-2 line-clamp-2 group-hover:text-red-600 transition-colors leading-snug">
                           {blog.title}
                         </h4>
                         
@@ -190,7 +190,7 @@ export default function Blog() {
                     viewport={{ once: true }}
                     className="mt-4 text-center"
                  >
-                    <Link href="/blog" className="inline-flex items-center gap-2 text-slate-900 font-bold hover:text-amber-500 transition-colors">
+                    <Link href="/blog" className="inline-flex items-center gap-2 text-slate-900 font-bold hover:text-red-600 transition-colors">
                       View All Articles <ArrowRight className="w-5 h-5" />
                     </Link>
                  </motion.div>

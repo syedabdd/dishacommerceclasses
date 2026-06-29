@@ -61,7 +61,7 @@ export default function TrendingCourses() {
       <div className="relative max-w-7xl mx-auto px-4">
         {/* Header */}
         <div className="flex flex-col lg:items-center lg:justify-center text-center gap-4 mb-14">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-amber-200 bg-amber-50 text-amber-600 text-xs font-bold uppercase tracking-wider mx-auto shadow-sm">
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#c0202a]/20 bg-[#c0202a]/10 text-[#c0202a] text-xs font-bold uppercase tracking-wider mx-auto shadow-sm">
             <Flame className="w-4 h-4 fill-current" />
             Most Enrolled
           </div>
@@ -73,7 +73,7 @@ export default function TrendingCourses() {
             Explore Our{" "}
             <span
               style={{
-                background: "linear-gradient(135deg, #1e293b 0%, #f59e0b 100%)",
+                background: "linear-gradient(135deg, #1a2e6c 0%, #c0202a 100%)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
                 backgroundClip: "text",
@@ -100,12 +100,12 @@ export default function TrendingCourses() {
             <div className="absolute -left-40 top-0 h-full w-40 rotate-12 bg-white/20 blur-2xl group-hover:left-[120%] transition-all duration-1000 ease-in-out" />
           </div>
 
-          <div className="lg:w-1/2 relative bg-linear-to-br from-slate-100 to-amber-50 rounded-3xl p-6 flex items-center justify-center w-full h-[300px] lg:h-[400px]">
+          <div className="lg:w-1/2 relative bg-linear-to-br from-slate-100 to-[#c0202a]/5 rounded-3xl p-6 flex items-center justify-center w-full h-[300px] lg:h-[400px]">
              {/* Badge */}
             <div className="absolute top-4 left-4 z-20">
               <div
                 className="flex items-center gap-2 px-4 py-2 rounded-full text-white text-xs font-bold shadow-xl backdrop-blur-md"
-                style={{ backgroundColor: "#f59e0b" }}
+                style={{ backgroundColor: "#c0202a" }}
               >
                 <Zap className="w-3 h-3 fill-current" />
                 {featured.badge}
@@ -121,7 +121,7 @@ export default function TrendingCourses() {
 
           <div className="lg:w-1/2 flex flex-col justify-center text-left space-y-6">
              <div className="flex items-center gap-4 text-sm font-semibold" style={{ color: "var(--text-muted)" }}>
-               <span className="flex items-center gap-1 text-amber-500 bg-amber-50 px-3 py-1 rounded-full"><Star className="w-4 h-4 fill-current"/> {featured.rating} Rating</span>
+               <span className="flex items-center gap-1 text-[#c0202a] bg-[#c0202a]/10 px-3 py-1 rounded-full"><Star className="w-4 h-4 fill-current"/> {featured.rating} Rating</span>
                <span className="flex items-center gap-1 bg-slate-100 px-3 py-1 rounded-full"><BookOpen className="w-4 h-4 text-slate-500"/> {featured.students} Students</span>
              </div>
              
@@ -137,7 +137,7 @@ export default function TrendingCourses() {
                ))}
              </ul>
 
-             <button className="self-start mt-4 px-8 py-4 rounded-xl text-white font-bold transition-all duration-300 hover:shadow-lg flex items-center gap-2" style={{ background: "linear-gradient(135deg, #1e293b 0%, #f59e0b 100%)" }}>
+             <button className="self-start mt-4 px-8 py-4 rounded-xl text-white font-bold transition-all duration-300 hover:shadow-lg flex items-center gap-2" style={{ background: "linear-gradient(135deg, #1a2e6c 0%, #c0202a 100%)" }}>
                Explore Full Course <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
              </button>
           </div>
@@ -154,7 +154,7 @@ export default function TrendingCourses() {
                 <div className="absolute top-4 left-4 z-20">
                   <div
                     className="flex items-center gap-2 px-3 py-1.5 rounded-full text-white text-xs font-bold shadow-md"
-                    style={{ backgroundColor: "#1e293b" }}
+                    style={{ backgroundColor: "#1a2e6c" }}
                   >
                     <PlayCircle className="w-3 h-3" />
                     {course.badge}
@@ -171,7 +171,7 @@ export default function TrendingCourses() {
                 </div>
 
                 <div className="p-6 flex flex-col grow">
-                  <div className="flex items-center gap-2 text-xs font-semibold mb-3 text-amber-500">
+                  <div className="flex items-center gap-2 text-xs font-semibold mb-3 text-[#c0202a]">
                     <Star className="w-4 h-4 fill-current"/> {course.rating} Rating
                   </div>
                   <h4 className="text-xl font-bold mb-2 line-clamp-2" style={{ color: "var(--text-primary)" }}>{course.title}</h4>
@@ -179,7 +179,7 @@ export default function TrendingCourses() {
                 </div>
                 
                 {/* Bottom Border Accent */}
-                <div className="h-1 w-0 group-hover:w-full transition-all duration-500" style={{ background: "linear-gradient(90deg, #1e293b, #f59e0b)" }} />
+                <div className="h-1 w-0 group-hover:w-full transition-all duration-500" style={{ background: "linear-gradient(90deg, #1a2e6c, #c0202a)" }} />
               </div>
             ))}
         </div>

@@ -134,7 +134,7 @@ export default function StudyMaterial() {
             <span
               className="block"
               style={{
-                background: "linear-gradient(135deg, #f59e0b 0%, #ea580c 100%)",
+                background: "linear-gradient(135deg, #1a2e6c 0%, #c0202a 100%)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
                 backgroundClip: "text",
@@ -167,11 +167,11 @@ export default function StudyMaterial() {
                         : "transparent",
                     borderColor:
                       activeCategory === cat.category
-                        ? "#f59e0b"
+                        ? "#c0202a"
                         : "transparent",
                     color:
                       activeCategory === cat.category
-                        ? "#f59e0b"
+                        ? "#c0202a"
                         : "var(--text-secondary)",
                   }}
                 >
@@ -222,7 +222,7 @@ export default function StudyMaterial() {
 
                           <div>
                             <h3
-                              className="text-xl font-bold mb-2 group-hover:text-amber-600 transition-colors"
+                              className="text-xl font-bold mb-2 group-hover:text-[#c0202a] transition-colors"
                               style={{ color: "var(--text-primary)" }}
                             >
                               {item.title}
@@ -236,8 +236,9 @@ export default function StudyMaterial() {
                           </div>
                         </div>
 
-                        <div className="mt-6 flex justify-end">
-                          <div className="w-10 h-10 rounded-full border border-amber-200 text-amber-500 flex items-center justify-center group-hover:bg-amber-500 group-hover:text-white transition-all">
+                        <div className="mt-6 flex justify-end relative">
+                          <div className={`w-1 h-12 bg-linear-to-b from-[#1a2e6c] to-[#c0202a] absolute left-0 top-1/2 -translate-y-1/2 rounded-full transition-all duration-300`} />
+                          <div className="w-10 h-10 rounded-full border border-[#c0202a]/20 text-[#c0202a] flex items-center justify-center group-hover:bg-[#c0202a] group-hover:text-white transition-all">
                             <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                           </div>
                         </div>

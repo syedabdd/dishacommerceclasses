@@ -61,7 +61,7 @@ export default function LiveClasses() {
     >
       {/* Cinematic Glow */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-amber-500/10 rounded-full blur-[150px]" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-red-600/10 rounded-full blur-[150px]" />
       </div>
 
       <div className="max-w-7xl mx-auto px-4 relative z-10">
@@ -86,7 +86,7 @@ export default function LiveClasses() {
               transition={{ delay: 0.1 }}
               className="text-4xl md:text-5xl font-black text-white"
             >
-              Masterclass <span className="text-amber-500">Sessions</span>
+              Masterclass <span className="text-red-600">Sessions</span>
             </motion.h2>
           </div>
 
@@ -97,7 +97,7 @@ export default function LiveClasses() {
              href="https://www.youtube.com/@DishaOnlineClasses"
              target="_blank"
              rel="noopener noreferrer"
-             className="hidden lg:flex items-center gap-2 text-amber-500 hover:text-white transition-colors font-bold"
+             className="hidden lg:flex items-center gap-2 text-red-600 hover:text-white transition-colors font-bold"
           >
              View All Classes <ArrowRight className="w-5 h-5" />
           </motion.a>
@@ -140,7 +140,7 @@ export default function LiveClasses() {
 
                 {/* Big Play Button */}
                 <div className="absolute inset-0 flex items-center justify-center">
-                   <div className="w-24 h-24 rounded-full bg-amber-500/20 backdrop-blur-md border border-amber-500/50 flex items-center justify-center group-hover:scale-110 group-hover:bg-amber-500 transition-all duration-500 shadow-[0_0_40px_rgba(245,158,11,0.3)]">
+                   <div className="w-24 h-24 rounded-full bg-red-600/20 backdrop-blur-md border border-red-600/50 flex items-center justify-center group-hover:scale-110 group-hover:bg-red-600 transition-all duration-500 shadow-[0_0_40px_rgba(192,32,42,0.3)]">
                       <Play size={40} className="text-white fill-white ml-2" />
                    </div>
                 </div>
@@ -149,16 +149,16 @@ export default function LiveClasses() {
                 <div className="absolute bottom-0 left-0 right-0 p-8 md:p-10">
                    <div className="flex items-center gap-3 mb-4">
                      <span className="px-3 py-1 rounded-full bg-slate-800/80 backdrop-blur text-slate-300 text-sm font-medium flex items-center gap-2">
-                       <Video className="w-4 h-4 text-amber-500" /> Commerce Board
+                       <Video className="w-4 h-4 text-red-600" /> Commerce Board
                      </span>
                      <span className="px-3 py-1 rounded-full bg-slate-800/80 backdrop-blur text-slate-300 text-sm font-medium flex items-center gap-2">
-                       <Clock className="w-4 h-4 text-amber-500" /> 1h 45m
+                       <Clock className="w-4 h-4 text-red-600" /> 1h 45m
                      </span>
                    </div>
                    <h3 className="text-2xl md:text-4xl font-bold text-white mb-3 leading-tight line-clamp-2">
                      {videos[0].title}
                    </h3>
-                   <div className="flex items-center gap-2 text-amber-500">
+                   <div className="flex items-center gap-2 text-red-600">
                       <GraduationCap size={20} />
                       <span className="font-semibold text-lg">{videos[0].teacher}</span>
                    </div>
@@ -197,7 +197,7 @@ export default function LiveClasses() {
 
                    {/* Info Half */}
                    <div className="p-5 flex flex-col grow justify-center">
-                      <h4 className="text-white font-bold line-clamp-2 mb-2 group-hover:text-amber-500 transition-colors">
+                      <h4 className="text-white font-bold line-clamp-2 mb-2 group-hover:text-red-600 transition-colors">
                         {video.title}
                       </h4>
                       <div className="flex items-center gap-2 text-slate-400 text-sm">
@@ -222,7 +222,7 @@ export default function LiveClasses() {
              href="https://www.youtube.com/@DishaOnlineClasses"
              target="_blank"
              rel="noopener noreferrer"
-             className="flex items-center gap-2 text-amber-500 hover:text-white transition-colors font-bold px-6 py-3 rounded-full border border-amber-500/30 bg-amber-500/10"
+             className="flex items-center gap-2 text-red-600 hover:text-white transition-colors font-bold px-6 py-3 rounded-full border border-red-600/30 bg-red-600/10"
           >
              View All Classes <ArrowRight className="w-5 h-5" />
           </a>
