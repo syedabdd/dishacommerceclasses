@@ -3,59 +3,91 @@
 import React from "react";
 import { Users, ArrowRight } from "lucide-react";
 import { FaYoutube } from "react-icons/fa";
+import { motion } from "framer-motion";
 
 const channels = [
   {
     name: "Disha Commerce Classes",
-    subscribers: "932K+ Subscribers",
+    subscribers: "173K+ Subs",
     url: "https://youtube.com",
+    featured: true,
   },
   {
-    name: "Disha Commerce Classes",
-    subscribers: "167K+ Subscribers",
+    name: "Disha Science Classes",
+    subscribers: "932K+ Subs",
     url: "https://youtube.com",
   },
   {
     name: "Disha Arts Classes",
-    subscribers: "406K+ Subscribers",
+    subscribers: "406K+ Subs",
     url: "https://youtube.com",
   },
   {
     name: "Disha Competitive Classes",
-    subscribers: "119K+ Subscribers",
+    subscribers: "119K+ Subs",
     url: "https://youtube.com",
   },
   {
     name: "Disha Junior Classes",
-    subscribers: "146K+ Subscribers",
+    subscribers: "146K+ Subs",
     url: "https://youtube.com",
   },
   {
     name: "Disha English Classes",
-    subscribers: "78K+ Subscribers",
+    subscribers: "78K+ Subs",
     url: "https://youtube.com",
   },
 ];
 
-export default function JoinOurYoutubeFam() {
-  const infiniteChannels = [...channels, ...channels, ...channels, ...channels];
+const containerVariants: any = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
 
+const itemVariants: any = {
+  hidden: { opacity: 0, scale: 0.9, y: 20 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    y: 0,
+    transition: { type: "spring", stiffness: 100 },
+  },
+};
+
+export default function JoinOurYoutubeFam() {
   return (
     <section
-      className="py-20 overflow-hidden"
+      className="py-24 relative overflow-hidden"
       style={{ backgroundColor: "var(--bg-section)" }}
     >
-      <div className="max-w-7xl mx-auto px-4">
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-amber-500/5 rounded-full blur-[100px] pointer-events-none" />
+
+      <div className="max-w-4xl mx-auto px-4 relative z-10 text-center">
         {/* Heading */}
-        <div className="text-center mb-14">
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mb-14"
+        >
+          <div className="inline-flex justify-center items-center gap-2 px-5 py-2 rounded-full border border-red-100 bg-red-50 text-red-600 text-sm font-bold shadow-sm mb-6">
+            <FaYoutube className="text-xl" />
+            Our YouTube Ecosystem
+          </div>
+
           <h2
-            className="text-3xl md:text-5xl font-black"
+            className="text-4xl md:text-5xl font-black mb-6"
             style={{ color: "var(--text-primary)" }}
           >
             Join The{" "}
             <span
               style={{
-                background: "linear-gradient(135deg, #1a2e6c 0%, #c0202a 100%)",
+                background: "linear-gradient(135deg, #1e293b 0%, #f59e0b 100%)",
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
                 backgroundClip: "text",
@@ -63,129 +95,85 @@ export default function JoinOurYoutubeFam() {
             >
               Disha Family
             </span>
-            , Today!
           </h2>
 
-          <p
-            className="mt-5 text-base md:text-lg max-w-2xl mx-auto"
-            style={{ color: "var(--text-secondary)" }}
-          >
-            Explore our massive YouTube ecosystem and subscribe to get access to
-            top-tier education for free.
+          <p className="text-lg" style={{ color: "var(--text-secondary)" }}>
+            Subscribe to our channels and get access to top-tier free education.
+            Millions of students already trust us!
           </p>
-        </div>
+        </motion.div>
 
-        {/* Slider */}
-        <div className="relative">
-          {/* Left Blur */}
-          <div
-            className="absolute left-0 top-0 z-20 h-full w-24 md:w-40 pointer-events-none"
-            style={{
-              background:
-                "linear-gradient(to right, var(--bg-section), transparent)",
-            }}
-          />
-
-          {/* Right Blur */}
-          <div
-            className="absolute right-0 top-0 z-20 h-full w-24 md:w-40 pointer-events-none"
-            style={{
-              background:
-                "linear-gradient(to left, var(--bg-section), transparent)",
-            }}
-          />
-
-          <div className="overflow-hidden">
-            <div className="flex gap-6 marquee-track">
-              {infiniteChannels.map((channel, index) => (
-                <a
-                  key={index}
-                  href={channel.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="shrink-0"
+        {/* Stacked Pills */}
+        <motion.div
+          variants={containerVariants as any}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="flex flex-wrap justify-center gap-4 md:gap-6 max-w-3xl mx-auto"
+        >
+          {channels.map((channel, index) => (
+            <motion.a
+              key={index}
+              variants={itemVariants as any}
+              href={channel.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className={`flex items-center gap-4 px-6 md:px-8 py-4 rounded-full shadow-md transition-shadow hover:shadow-xl ${channel.featured ? "border-2 border-amber-500 bg-amber-50/50" : ""}`}
+              style={{
+                backgroundColor: channel.featured
+                  ? undefined
+                  : "var(--bg-card)",
+                border: channel.featured
+                  ? undefined
+                  : "1px solid var(--border-color)",
+              }}
+            >
+              <FaYoutube className="text-red-600 text-3xl" />
+              <div className="text-left">
+                <h3
+                  className="font-extrabold text-sm md:text-base leading-none mb-1"
+                  style={{ color: "var(--text-primary)" }}
                 >
-                  <div
-                    className="w-[280px] md:w-[320px] h-[220px] rounded-[28px] shadow-sm mb-3 hover:shadow-2xl hover:shadow-red-400 hover:-translate-y-2 transition-all duration-500 flex flex-col items-center justify-center px-6"
-                    style={{
-                      backgroundColor: "var(--bg-card)",
-                      border: "1px solid var(--border-color)",
-                    }}
-                  >
-                    <div className="w-16 h-16 rounded-2xl bg-gray-100 flex items-center justify-center">
-                      <FaYoutube className="text-red-600 text-4xl" />
-                    </div>
-
-                    <h3
-                      className="mt-6 text-lg md:text-xl font-bold text-center"
-                      style={{ color: "var(--text-primary)" }}
-                    >
-                      {channel.name}
-                    </h3>
-
-                    <div
-                      className="mt-4 rounded-full px-4 py-2 flex items-center gap-2"
-                      style={{
-                        backgroundColor: "var(--bg-section)",
-                        color: "var(--text-secondary)",
-                      }}
-                    >
-                      <Users size={15} />
-                      <span className="text-sm font-semibold text-slate-700">
-                        {channel.subscribers}
-                      </span>
-                    </div>
-                  </div>
-                </a>
-              ))}
-            </div>
-          </div>
-        </div>
+                  {channel.name}
+                </h3>
+                <div
+                  className="flex items-center gap-1 text-xs md:text-sm font-semibold"
+                  style={{ color: "var(--text-secondary)" }}
+                >
+                  <Users size={12} /> {channel.subscribers}
+                </div>
+              </div>
+            </motion.a>
+          ))}
+        </motion.div>
 
         {/* Button */}
-        <div className="text-center text-gray-200 mt-14">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mt-16"
+        >
           <a
             href="https://www.youtube.com/@DishaOnlineClasses"
             target="_blank"
             rel="noopener noreferrer"
-            className="group inline-flex items-center gap-3 px-8 py-4 rounded-2xl text-white font-bold shadow-xl hover:-translate-y-1 transition-all duration-300"
+            className="group inline-flex items-center gap-3 px-8 py-4 rounded-2xl !text-white font-bold shadow-xl hover:-translate-y-1 transition-all duration-300"
             style={{
-              background: "linear-gradient(135deg, #1a2e6c 0%, #c0202a 100%)",
-              boxShadow: "0 8px 25px rgba(26,46,108,0.35)",
+              background: "linear-gradient(135deg, #1e293b 0%, #f59e0b 100%)",
+              boxShadow: "0 8px 25px rgba(15,23,42,0.35)",
             }}
           >
             Explore All Channels
-            <ArrowRight size={20} />
+            <ArrowRight
+              size={20}
+              className="group-hover:translate-x-1 transition-transform"
+            />
           </a>
-        </div>
+        </motion.div>
       </div>
-
-      <style>{`
-        .marquee-track {
-          width: max-content;
-          animation: scroll 80s linear infinite;
-        }
-
-        .marquee-track:hover {
-          animation-play-state: paused;
-        }
-
-        @keyframes scroll {
-          from {
-            transform: translateX(0);
-          }
-
-          to {
-            transform: translateX(-50%);
-          }
-        }
-
-        @media (max-width: 768px) {
-          .marquee-track {
-            animation-duration: 25s;
-          }
-        }
-      `}</style>
     </section>
   );
 }

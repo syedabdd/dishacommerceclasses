@@ -67,7 +67,7 @@ export default function BlogPost({
     <>
       {/* Reading Progress */}
       <div
-        className="fixed top-0 left-0 z-50 h-1 bg-[#1a2e6c] transition-all"
+        className="fixed top-0 left-0 z-50 h-1 bg-[#1e293b] transition-all"
         style={{ width: `${progress}%` }}
       />
 
@@ -76,7 +76,7 @@ export default function BlogPost({
           {/* Back */}
           <Link
             href="/blog"
-            className="inline-flex items-center gap-2 text-slate-700 hover:text-[#1a2e6c] font-semibold mb-6"
+            className="inline-flex items-center gap-2 text-slate-700 hover:text-[#1e293b] font-semibold mb-6"
           >
             <ArrowLeft className="w-5 h-5" />
             Back to News
@@ -241,7 +241,7 @@ export default function BlogPost({
                         />
 
                         <div>
-                          <h3 className="text-sm font-semibold text-slate-800 group-hover:text-[#1a2e6c] line-clamp-3 transition">
+                          <h3 className="text-sm font-semibold text-slate-800 group-hover:text-[#1e293b] line-clamp-3 transition">
                             {item.title}
                           </h3>
 

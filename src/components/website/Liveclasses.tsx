@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Play, ArrowRight, GraduationCap } from "lucide-react";
+import { Play, ArrowRight, GraduationCap, Video, Clock } from "lucide-react";
 
 const youtubeLinks = [
   "https://www.youtube.com/watch?v=gIdf2tIAMm0",
@@ -56,146 +56,178 @@ export default function LiveClasses() {
 
   return (
     <section
-      className="py-16 lg:py-24"
-      style={{ backgroundColor: "var(--bg-page)" }}
+      className="py-20 lg:py-32 relative overflow-hidden"
+      style={{ backgroundColor: "#0f172a" }} // Force dark cinematic background
     >
-      <div className="max-w-7xl mx-auto px-4">
+      {/* Cinematic Glow */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-amber-500/10 rounded-full blur-[150px]" />
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 relative z-10">
+        
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-14"
-        >
-          <h2
-            className="text-4xl md:text-5xl font-extrabold"
-            style={{ color: "var(--text-primary)" }}
-          >
-            Free{" "}
-            <span
-              style={{
-                background: "linear-gradient(135deg, #1a2e6c 0%, #c0202a 100%)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
-              }}
+        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-12">
+          <div>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-red-500/30 bg-red-500/10 text-red-400 text-xs font-bold uppercase tracking-wider mb-4"
             >
-              Live Classes
-            </span>
-          </h2>
+              <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+              Live Now
+            </motion.div>
 
-          <p
-            className="mt-3 text-lg"
-            style={{ color: "var(--text-secondary)" }}
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+              className="text-4xl md:text-5xl font-black text-white"
+            >
+              Masterclass <span className="text-amber-500">Sessions</span>
+            </motion.h2>
+          </div>
+
+          <motion.a
+             initial={{ opacity: 0, scale: 0.9 }}
+             whileInView={{ opacity: 1, scale: 1 }}
+             viewport={{ once: true }}
+             href="https://www.youtube.com/@DishaOnlineClasses"
+             target="_blank"
+             rel="noopener noreferrer"
+             className="hidden lg:flex items-center gap-2 text-amber-500 hover:text-white transition-colors font-bold"
           >
-            Watch our latest top sessions completely free
-          </p>
-
-          <div
-            className="w-24 h-1.5 rounded-full mx-auto mt-5"
-            style={{ background: "linear-gradient(90deg, #1a2e6c, #c0202a)" }}
-          />
-        </motion.div>
+             View All Classes <ArrowRight className="w-5 h-5" />
+          </motion.a>
+        </div>
 
         {/* Loading */}
         {loading ? (
-          <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8">
-            {[1, 2, 3].map((item) => (
-              <div
-                key={item}
-                className="bg-white rounded-3xl overflow-hidden shadow animate-pulse"
-              >
-                <div className="h-60 bg-slate-200" />
-                <div className="p-5">
-                  <div className="h-5 bg-slate-200 rounded mb-3" />
-                  <div className="h-5 bg-slate-200 rounded w-3/4" />
-                </div>
-              </div>
-            ))}
+          <div className="flex flex-col lg:flex-row gap-6 animate-pulse">
+            <div className="w-full lg:w-2/3 h-[300px] md:h-[500px] bg-slate-800 rounded-3xl" />
+            <div className="w-full lg:w-1/3 flex flex-col gap-6">
+              {[1, 2].map((i) => <div key={i} className="h-[240px] bg-slate-800 rounded-3xl" />)}
+            </div>
           </div>
-        ) : (
-          <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-8">
-            {videos.map((video, index) => (
-              <motion.a
-                key={index}
-                href={video.link}
+        ) : videos.length > 0 ? (
+          <div className="flex flex-col lg:flex-row gap-6">
+            
+            {/* Featured Main Video */}
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="w-full lg:w-2/3"
+            >
+              <a
+                href={videos[0].link}
                 target="_blank"
                 rel="noopener noreferrer"
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{
-                  delay: index * 0.15,
-                  duration: 0.5,
-                }}
-                viewport={{ once: true }}
-                whileHover={{ y: -8 }}
-                className="group rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500"
-                style={{
-                  backgroundColor: "var(--bg-card)",
-                  border: "1px solid var(--border-color)",
-                }}
+                className="group relative block rounded-3xl overflow-hidden shadow-2xl border border-slate-800 h-full"
               >
-                {/* Thumbnail */}
-                <div className="relative overflow-hidden">
+                <div className="absolute inset-0 bg-slate-900">
                   <img
-                    src={video.thumbnail}
-                    alt={video.title}
-                    className="w-full h-60 object-cover group-hover:scale-110 transition-transform duration-700"
+                    src={videos[0].thumbnail}
+                    alt={videos[0].title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-80 group-hover:opacity-100"
                   />
+                </div>
+                
+                {/* Cinematic Gradient */}
+                <div className="absolute inset-0 bg-linear-to-t from-slate-950 via-slate-900/40 to-transparent" />
 
-                  <div className="absolute inset-0 bg-black/20 group-hover:bg-black/30 transition-all" />
-
-                  {/* Play Button */}
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-20 h-20 rounded-full bg-white/25 backdrop-blur-md border border-white/40 flex items-center justify-center group-hover:scale-110 transition-all duration-300">
-                      <Play size={34} className="text-white fill-white ml-1" />
-                    </div>
-                  </div>
+                {/* Big Play Button */}
+                <div className="absolute inset-0 flex items-center justify-center">
+                   <div className="w-24 h-24 rounded-full bg-amber-500/20 backdrop-blur-md border border-amber-500/50 flex items-center justify-center group-hover:scale-110 group-hover:bg-amber-500 transition-all duration-500 shadow-[0_0_40px_rgba(245,158,11,0.3)]">
+                      <Play size={40} className="text-white fill-white ml-2" />
+                   </div>
                 </div>
 
-                {/* Content */}
-                <div className="p-6">
-                  <h3
-                    className="text-lg font-bold leading-snug line-clamp-2 group-hover:text-blue-700 transition-colors"
-                    style={{ color: "var(--text-primary)" }}
-                  >
-                    {video.title}
-                  </h3>
-
-                  <div className="flex items-center gap-2 mt-4 text-orange-500">
-                    <GraduationCap size={18} />
-                    <span className="font-medium">{video.teacher}</span>
-                  </div>
+                {/* Info */}
+                <div className="absolute bottom-0 left-0 right-0 p-8 md:p-10">
+                   <div className="flex items-center gap-3 mb-4">
+                     <span className="px-3 py-1 rounded-full bg-slate-800/80 backdrop-blur text-slate-300 text-sm font-medium flex items-center gap-2">
+                       <Video className="w-4 h-4 text-amber-500" /> Commerce Board
+                     </span>
+                     <span className="px-3 py-1 rounded-full bg-slate-800/80 backdrop-blur text-slate-300 text-sm font-medium flex items-center gap-2">
+                       <Clock className="w-4 h-4 text-amber-500" /> 1h 45m
+                     </span>
+                   </div>
+                   <h3 className="text-2xl md:text-4xl font-bold text-white mb-3 leading-tight line-clamp-2">
+                     {videos[0].title}
+                   </h3>
+                   <div className="flex items-center gap-2 text-amber-500">
+                      <GraduationCap size={20} />
+                      <span className="font-semibold text-lg">{videos[0].teacher}</span>
+                   </div>
                 </div>
-              </motion.a>
-            ))}
+              </a>
+            </motion.div>
+
+            {/* Up Next / Playlist Sidebar */}
+            <div className="w-full lg:w-1/3 flex flex-col gap-6">
+              {videos.slice(1).map((video, index) => (
+                <motion.a
+                  key={index}
+                  initial={{ opacity: 0, x: 40 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ delay: index * 0.2 }}
+                  viewport={{ once: true }}
+                  href={video.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group relative flex flex-col rounded-3xl overflow-hidden shadow-lg border border-slate-800 bg-slate-900/50 hover:bg-slate-800 transition-colors h-full min-h-[220px]"
+                >
+                   {/* Thumbnail Half */}
+                   <div className="h-[140px] relative overflow-hidden">
+                     <img
+                        src={video.thumbnail}
+                        alt={video.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-70 group-hover:opacity-100"
+                      />
+                      <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors" />
+                      <div className="absolute inset-0 flex items-center justify-center">
+                         <div className="w-12 h-12 rounded-full bg-white/20 backdrop-blur border border-white/30 flex items-center justify-center group-hover:scale-110 transition-transform">
+                            <Play size={20} className="text-white fill-white ml-1" />
+                         </div>
+                      </div>
+                   </div>
+
+                   {/* Info Half */}
+                   <div className="p-5 flex flex-col grow justify-center">
+                      <h4 className="text-white font-bold line-clamp-2 mb-2 group-hover:text-amber-500 transition-colors">
+                        {video.title}
+                      </h4>
+                      <div className="flex items-center gap-2 text-slate-400 text-sm">
+                        <GraduationCap size={16} />
+                        <span>{video.teacher}</span>
+                      </div>
+                   </div>
+                </motion.a>
+              ))}
+            </div>
+
           </div>
-        )}
+        ) : null}
 
-        {/* Button */}
         <motion.div
-          initial={{ opacity: 0, y: 25 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="flex text-gray-200 justify-center mt-14"
+           initial={{ opacity: 0, y: 20 }}
+           whileInView={{ opacity: 1, y: 0 }}
+           viewport={{ once: true }}
+           className="mt-8 flex justify-center lg:hidden"
         >
-          <a
-            href="https://www.youtube.com/@DishaOnlineClasses"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group inline-flex items-center gap-3 px-8 py-4 rounded-2xl text-white font-bold shadow-xl hover:-translate-y-1 transition-all duration-300"
-            style={{
-              background: "linear-gradient(135deg, #1a2e6c 0%, #c0202a 100%)",
-              boxShadow: "0 8px 25px rgba(26,46,108,0.35)",
-            }}
+           <a
+             href="https://www.youtube.com/@DishaOnlineClasses"
+             target="_blank"
+             rel="noopener noreferrer"
+             className="flex items-center gap-2 text-amber-500 hover:text-white transition-colors font-bold px-6 py-3 rounded-full border border-amber-500/30 bg-amber-500/10"
           >
-            Explore All Videos
-            <ArrowRight
-              size={20}
-              className="group-hover:translate-x-1 transition-transform"
-            />
+             View All Classes <ArrowRight className="w-5 h-5" />
           </a>
         </motion.div>
+
       </div>
     </section>
   );
