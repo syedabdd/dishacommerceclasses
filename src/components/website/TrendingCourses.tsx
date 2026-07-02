@@ -7,7 +7,7 @@ import Image from "next/image";
 const courses = [
   {
     id: 1,
-    image: "https://dishaonlineclasses.com/admindp/admindp/uploads/courses/1775887619_sci%20hin.png",
+    image: "https://img.youtube.com/vi/gIdf2tIAMm0/maxresdefault.jpg", // Using Youtube Thumbnail as requested
     link: "https://dishaonlineclasses.com/course-details.php?id=36",
     badge: "FEATURED BATCH",
     badgeColor: "amber",
@@ -19,7 +19,7 @@ const courses = [
   },
   {
     id: 3,
-    image: "https://dishaonlineclasses.com/admindp/admindp/uploads/courses/1775282090_11th%20sci%20english%20batch.png",
+    image: "https://img.youtube.com/vi/he7e1b78OFo/maxresdefault.jpg",
     link: "https://dishaonlineclasses.com/course-details.php?id=35",
     badge: "NEW BATCH",
     badgeColor: "blue",
@@ -29,7 +29,7 @@ const courses = [
   },
   {
     id: 4,
-    image: "https://dishaonlineclasses.com/admindp/admindp/uploads/courses/1768808839_sci.png",
+    image: "https://img.youtube.com/vi/A2rXZp1bQuw/maxresdefault.jpg",
     link: "https://dishaonlineclasses.com/course-details.php?id=29",
     badge: "NEW BATCH",
     badgeColor: "blue",
@@ -39,7 +39,7 @@ const courses = [
   },
   {
     id: 2,
-    image: "https://dishaonlineclasses.com/admindp/admindp/uploads/courses/1768808277_scieng.png",
+    image: "https://img.youtube.com/vi/gIdf2tIAMm0/maxresdefault.jpg",
     link: "https://dishaonlineclasses.com/course-details.php?id=28",
     badge: "NEW BATCH",
     badgeColor: "blue",

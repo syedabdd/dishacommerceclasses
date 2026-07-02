@@ -77,127 +77,57 @@ export default function Blog() {
             <p className="text-slate-500">Try searching with different keywords.</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-            
-            {/* Featured Blog (Left - 7 cols) */}
-            {featuredBlog && (
-              <motion.div 
+          <div className="max-w-5xl mx-auto flex flex-col gap-6">
+            {filteredBlogs.map((blog, index) => (
+              <motion.div
+                key={blog.id}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className="lg:col-span-7"
+                transition={{ delay: Math.min(index * 0.1, 0.5) }}
               >
-                <Link href={`/blog/${featuredBlog.id}`} className="group block h-full">
-                  <div className="bg-white rounded-[32px] overflow-hidden shadow-md hover:shadow-2xl transition-all duration-500 border border-slate-200 h-full flex flex-col">
-                    <div className="relative h-[300px] md:h-[400px] w-full overflow-hidden">
-                      <img
-                        src={featuredBlog.image || "https://images.unsplash.com/photo-1499750310107-5fef28a66643"}
-                        alt={featuredBlog.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition duration-700"
-                      />
-                      <div className="absolute inset-0 bg-linear-to-t from-slate-900/80 via-slate-900/20 to-transparent opacity-80 group-hover:opacity-100 transition-opacity" />
-                      <div className="absolute bottom-6 left-6 right-6">
-                         <span className="inline-block bg-red-600 text-white text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full mb-3 shadow-sm">
-                            {featuredBlog.category || "Featured"}
-                         </span>
-                         <h3 className="text-2xl md:text-3xl font-bold text-white leading-snug line-clamp-3">
-                           {featuredBlog.title}
-                         </h3>
-                      </div>
-                    </div>
+                <Link href={`/blog/${blog.id}`} className="group block">
+                  <div className="bg-white rounded-[24px] p-4 flex flex-col md:flex-row gap-6 shadow-sm hover:shadow-xl border border-slate-200 transition-all duration-300">
                     
-                    <div className="p-8 flex flex-col grow justify-between">
-                      <p className="text-slate-600 leading-relaxed mb-6 line-clamp-3 md:line-clamp-4">
-                        {featuredBlog.content?.replace(/<[^>]*>?/gm, "").slice(0, 300)}...
+                    {/* Image Thumbnail */}
+                    <div className="w-full md:w-[320px] h-[200px] rounded-[16px] overflow-hidden shrink-0 relative">
+                      <img
+                        src={blog.image || "https://images.unsplash.com/photo-1499750310107-5fef28a66643"}
+                        alt={blog.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                      />
+                      <div className="absolute inset-0 bg-slate-900/10 group-hover:bg-transparent transition" />
+                    </div>
+
+                    {/* Content */}
+                    <div className="flex flex-col justify-center grow py-2 pr-2">
+                      <span className="inline-flex items-center bg-[#1a2e6c]/10 text-[#1a2e6c] text-[11px] font-bold px-3 py-1 rounded-full w-fit mb-3">
+                        {blog.category || "Exam Tips"}
+                      </span>
+                      
+                      <h3 className="text-xl md:text-2xl font-extrabold text-slate-900 mb-2 line-clamp-2 group-hover:text-[#c0202a] transition-colors leading-snug">
+                        {blog.title}
+                      </h3>
+                      
+                      <p className="text-sm text-slate-500 leading-relaxed mb-6 line-clamp-2">
+                        {blog.content?.replace(/<[^>]*>?/gm, "")}
                       </p>
                       
-                      <div className="flex flex-wrap items-center justify-between gap-4 pt-6 border-t border-slate-100">
-                        <div className="flex items-center gap-4 text-sm font-medium text-slate-500">
-                           <div className="flex items-center gap-1.5">
-                             <Calendar className="w-4 h-4 text-red-600" />
-                             {new Date(featuredBlog.created_at).toLocaleDateString("en-GB")}
-                           </div>
-                           <div className="flex items-center gap-1.5">
-                             <Clock className="w-4 h-4 text-red-600" />
-                             {Math.max(1, Math.ceil((featuredBlog.content?.replace(/<[^>]*>?/gm, "").length || 0) / 1000))} min read
-                           </div>
-                        </div>
-                        <div className="flex items-center gap-2 text-slate-900 font-bold group-hover:text-red-600 transition-colors">
-                           Read Article <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                        </div>
+                      <div className="mt-auto flex items-center justify-between text-sm font-medium text-slate-500 pt-2">
+                         <div className="flex items-center gap-1.5">
+                           <Calendar className="w-4 h-4" />
+                           {new Date(blog.created_at).toLocaleDateString("en-GB")}
+                         </div>
+                         <div className="flex items-center gap-1 text-slate-800 font-bold group-hover:text-[#c0202a] transition-colors">
+                           Read More <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                         </div>
                       </div>
                     </div>
+
                   </div>
                 </Link>
               </motion.div>
-            )}
-
-            {/* Regular Blogs Stack (Right - 5 cols) */}
-            <div className="lg:col-span-5 flex flex-col gap-6">
-              {regularBlogs.slice(0, 3).map((blog, index) => (
-                <motion.div
-                  key={blog.id}
-                  initial={{ opacity: 0, x: 20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                >
-                  <Link href={`/blog/${blog.id}`} className="group block">
-                    <div className="bg-white rounded-3xl p-4 md:p-5 flex gap-5 shadow-sm hover:shadow-xl border border-slate-200 transition-all duration-300">
-                      
-                      {/* Image Thumbnail */}
-                      <div className="w-28 h-28 md:w-36 md:h-36 rounded-2xl overflow-hidden shrink-0 relative">
-                        <img
-                          src={blog.image || "https://images.unsplash.com/photo-1499750310107-5fef28a66643"}
-                          alt={blog.title}
-                          className="w-full h-full object-cover group-hover:scale-110 transition duration-500"
-                        />
-                        <div className="absolute inset-0 bg-slate-900/10 group-hover:bg-transparent transition" />
-                      </div>
-
-                      {/* Content */}
-                      <div className="flex flex-col justify-center grow">
-                        <span className="text-red-600 text-xs font-bold uppercase tracking-wider mb-2 block">
-                          {blog.category || "Education"}
-                        </span>
-                        
-                        <h4 className="text-base md:text-lg font-bold text-slate-900 mb-2 line-clamp-2 group-hover:text-red-600 transition-colors leading-snug">
-                          {blog.title}
-                        </h4>
-                        
-                        <div className="flex items-center gap-3 text-xs font-medium text-slate-500 mt-auto">
-                           <div className="flex items-center gap-1">
-                             <Calendar className="w-3.5 h-3.5" />
-                             {new Date(blog.created_at).toLocaleDateString("en-GB", { day: 'numeric', month: 'short' })}
-                           </div>
-                           <span className="w-1 h-1 rounded-full bg-slate-300" />
-                           <div className="flex items-center gap-1">
-                             <Clock className="w-3.5 h-3.5" />
-                             {Math.max(1, Math.ceil((blog.content?.replace(/<[^>]*>?/gm, "").length || 0) / 1000))} min
-                           </div>
-                        </div>
-                      </div>
-
-                    </div>
-                  </Link>
-                </motion.div>
-              ))}
-              
-              {regularBlogs.length > 3 && (
-                 <motion.div 
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    viewport={{ once: true }}
-                    className="mt-4 text-center"
-                 >
-                    <Link href="/blog" className="inline-flex items-center gap-2 text-slate-900 font-bold hover:text-red-600 transition-colors">
-                      View All Articles <ArrowRight className="w-5 h-5" />
-                    </Link>
-                 </motion.div>
-              )}
-
-            </div>
-
+            ))}
           </div>
         )}
       </div>

@@ -16,32 +16,24 @@ export default function Toppers() {
       name: "Nand Sultana",
       image: "https://dishaonlineclasses.com/uploads/toppers/1776233433_Rank2.jpeg",
       link: "https://dishaonlineclasses.com/toppers.php",
-      score: "472/500",
-      quote: "Disha Commerce Classes provided me with the best notes and test series. The live classes were interactive and helped me clear all my doubts.",
     },
     {
       id: 2,
       name: "Ansh Raj",
       image: "https://dishaonlineclasses.com/uploads/toppers/1776233427_Rank4.jpeg",
       link: "https://dishaonlineclasses.com/toppers.php",
-      score: "468/500",
-      quote: "The teachers here are exceptional. Their guidance and support were crucial in helping me achieve a top rank in the Bihar Board exams.",
     },
     {
       id: 3,
       name: "Bikash Kumar",
       image: "https://dishaonlineclasses.com/uploads/toppers/1776233422_Rank5.jpeg",
       link: "https://dishaonlineclasses.com/toppers.php",
-      score: "465/500",
-      quote: "Studying from Disha was the best decision. The detailed explanations and regular mock tests boosted my confidence tremendously.",
     },
     {
       id: 4,
       name: "Abhay Kumar",
       image: "https://dishaonlineclasses.com/uploads/toppers/1776233416_Rank6Jamui.jpeg",
       link: "https://dishaonlineclasses.com/toppers.php",
-      score: "460/500",
-      quote: "I am grateful to the entire team at Disha Commerce Classes for their relentless efforts in shaping my career and helping me excel.",
     },
   ];
 
@@ -157,52 +149,25 @@ export default function Toppers() {
           >
             {toppers.map((topper) => (
               <SwiperSlide key={topper.id} className="!h-auto">
-                <div 
-                  className="flex flex-col h-full rounded-[32px] overflow-hidden shadow-xl border hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 relative group" 
+                <a 
+                  href={topper.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex flex-col h-full rounded-[32px] overflow-hidden shadow-xl border hover:shadow-2xl hover:-translate-y-2 transition-all duration-300 relative group block" 
                   style={{ backgroundColor: "var(--bg-card)", borderColor: "var(--border-color)" }}
                 >
                   
-                  {/* Image Side (Top) */}
-                  <div className="w-full h-[280px] relative bg-slate-100 flex-shrink-0 overflow-hidden">
+                  {/* Image */}
+                  <div className="w-full aspect-[4/5] relative bg-slate-100 overflow-hidden">
                     <img 
                       src={topper.image} 
                       alt={topper.name} 
-                      className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                     />
-                    <div className="absolute inset-0 bg-linear-to-t from-slate-900/80 via-transparent to-transparent opacity-60"></div>
-                    
-                    {/* Score Badge */}
-                    <div className="absolute bottom-4 left-4 inline-block px-3 py-1.5 rounded-lg font-bold text-sm shadow-md" style={{ backgroundColor: "#1a2e6c", color: "#fff" }}>
-                      Score: {topper.score}
-                    </div>
+                    <div className="absolute inset-0 bg-linear-to-t from-slate-900/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                   </div>
 
-                  {/* Content Side (Bottom) */}
-                  <div className="p-6 md:p-8 flex flex-col grow relative bg-[var(--bg-card)]">
-                     <Quote className="absolute top-6 right-6 w-12 h-12 opacity-10" style={{ color: "#c0202a" }} />
-
-                     <p className="text-base md:text-lg font-medium leading-relaxed italic mb-8 flex-grow" style={{ color: "var(--text-secondary)" }}>
-                       "{topper.quote}"
-                     </p>
-                     
-                     <div className="mt-auto flex items-center justify-between border-t border-[var(--border-color)] pt-5">
-                        <div>
-                           <h3 className="text-xl font-black" style={{ color: "var(--text-primary)" }}>{topper.name}</h3>
-                           <p className="text-xs font-bold uppercase tracking-widest mt-1 text-[#c0202a]">Bihar Board Topper</p>
-                        </div>
-                        <a 
-                          href={topper.link} 
-                          target="_blank" 
-                          rel="noopener noreferrer"
-                          className="w-10 h-10 rounded-full flex items-center justify-center transition-all group-hover:scale-110 shadow-md"
-                          style={{ background: "linear-gradient(135deg, #1a2e6c, #c0202a)", color: "white" }}
-                        >
-                          <ArrowRight className="w-4 h-4" />
-                        </a>
-                     </div>
-                  </div>
-
-                </div>
+                </a>
               </SwiperSlide>
             ))}
           </Swiper>

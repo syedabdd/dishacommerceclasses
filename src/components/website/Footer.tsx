@@ -136,17 +136,17 @@ function StatPill({
       className="flex items-center gap-3 rounded-xl px-4 py-3 border transition-all duration-300 group cursor-default"
       style={{
         backgroundColor: "rgba(15,23,42,0.30)",
-        borderColor: "rgba(245,158,11,0.20)",
+        borderColor: "rgba(192,32,42,0.20)",
       }}
       onMouseEnter={(e) => {
         (e.currentTarget as HTMLElement).style.borderColor =
-          "rgba(245,158,11,0.60)";
+          "rgba(192,32,42,0.60)";
         (e.currentTarget as HTMLElement).style.backgroundColor =
           "rgba(15,23,42,0.50)";
       }}
       onMouseLeave={(e) => {
         (e.currentTarget as HTMLElement).style.borderColor =
-          "rgba(245,158,11,0.20)";
+          "rgba(192,32,42,0.20)";
         (e.currentTarget as HTMLElement).style.backgroundColor =
           "rgba(15,23,42,0.30)";
       }}
@@ -292,7 +292,7 @@ const Footer = () => {
         className="absolute -right-40 bottom-0 h-[600px] w-[600px] rounded-full pointer-events-none"
         style={{
           background:
-            "radial-gradient(circle, rgba(245,158,11,0.18) 0%, transparent 70%)",
+            "radial-gradient(circle, rgba(192,32,42,0.18) 0%, transparent 70%)",
         }}
       />
 
@@ -398,7 +398,7 @@ const Footer = () => {
                 <Image
                   src="/Logo.PNG"
                   alt="Disha Online Classes"
-                  className="w-full h-full object-contain drop-shadow-[0_4px_20px_rgba(245,158,11,0.40)]"
+                  className="w-full h-full object-contain drop-shadow-[0_4px_20px_rgba(192,32,42,0.40)]"
                   width={64}
                   height={64}
                   unoptimized={true}
@@ -452,7 +452,7 @@ const Footer = () => {
               >
                 <div
                   className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0 group-hover:scale-110 transition-transform"
-                  style={{ backgroundColor: "rgba(245,158,11,0.25)" }}
+                  style={{ backgroundColor: "rgba(192,32,42,0.25)" }}
                 >
                   <Mail className="w-3.5 h-3.5 text-red-400" />
                 </div>
@@ -464,7 +464,7 @@ const Footer = () => {
               >
                 <div
                   className="w-7 h-7 rounded-lg flex items-center justify-center shrink-0"
-                  style={{ backgroundColor: "rgba(245,158,11,0.25)" }}
+                  style={{ backgroundColor: "rgba(192,32,42,0.25)" }}
                 >
                   <MapPin className="w-3.5 h-3.5 text-red-400" />
                 </div>
@@ -530,7 +530,7 @@ const Footer = () => {
                   (e.currentTarget as HTMLElement).style.borderColor =
                     "#c0202a";
                   (e.currentTarget as HTMLElement).style.backgroundColor =
-                    "rgba(245,158,11,0.12)";
+                    "rgba(192,32,42,0.12)";
                 }}
                 onMouseLeave={(e) => {
                   (e.currentTarget as HTMLElement).style.borderColor =
@@ -592,16 +592,16 @@ const Footer = () => {
               className="mt-8 p-4 rounded-2xl border text-center transition-all duration-300"
               style={{
                 background:
-                  "linear-gradient(135deg, rgba(15,23,42,0.35), rgba(245,158,11,0.15))",
-                borderColor: "rgba(245,158,11,0.25)",
+                  "linear-gradient(135deg, rgba(15,23,42,0.35), rgba(192,32,42,0.15))",
+                borderColor: "rgba(192,32,42,0.25)",
               }}
               onMouseEnter={(e) =>
                 ((e.currentTarget as HTMLElement).style.borderColor =
-                  "rgba(245,158,11,0.60)")
+                  "rgba(192,32,42,0.60)")
               }
               onMouseLeave={(e) =>
                 ((e.currentTarget as HTMLElement).style.borderColor =
-                  "rgba(245,158,11,0.25)")
+                  "rgba(192,32,42,0.25)")
               }
             >
               <p className="text-white font-bold text-sm mb-1">
@@ -657,7 +657,7 @@ const Footer = () => {
             className="fixed bottom-8 right-6 z-50 w-11 h-11 rounded-full text-white shadow-2xl flex items-center justify-center"
             style={{
               background: "linear-gradient(135deg, #1a2e6c, #c0202a)",
-              boxShadow: "0 4px 20px rgba(245,158,11,0.50)",
+              boxShadow: "0 4px 20px rgba(192,32,42,0.50)",
             }}
           >
             <ChevronUp className="w-5 h-5" />
