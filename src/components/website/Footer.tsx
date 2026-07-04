@@ -421,7 +421,7 @@ const Footer = () => {
             </p>
 
             {/* Stats Grid */}
-            <div className="grid text-gray-200 grid-cols-2 gap-2.5 mb-6">
+            <div className="grid text-gray-200 grid-cols-1 sm:grid-cols-2 gap-2.5 mb-6">
               <StatPill icon={Users} label="Active Students" value="50,000+" />
               <StatPill icon={Star} label="Success Rate" value="95%" />
               <StatPill icon={BookOpen} label="Video Lessons" value="10,000+" />

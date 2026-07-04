@@ -81,7 +81,7 @@ export default function JoinOurYoutubeFam() {
           </div>
 
           <h2
-            className="text-4xl md:text-5xl font-black mb-6"
+            className="text-3xl md:text-4xl lg:text-5xl font-black mb-6"
             style={{ color: "var(--text-primary)" }}
           >
             Join The{" "}

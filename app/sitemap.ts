@@ -25,7 +25,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       changeFrequency: "daily",
       priority: 0.8,
     },
-
+    {
+      url: `${baseUrl}/free-courses`,
+      lastModified: new Date(),
+      changeFrequency: "daily",
+      priority: 0.9,
+    },
   ];
 
   try {
@@ -42,8 +47,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.7,
     }));
 
-
-
     // Quizzes
     const quizzes = await prisma.quiz.findMany({
       where: { isPublished: true },
@@ -57,8 +60,56 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.6,
     }));
 
+    // Free Courses
+    const courses = await prisma.freeCourse.findMany({
+      where: { status: "Published" },
+      include: {
+        subjects: {
+          include: {
+            chapters: {
+              where: { status: "Published" },
+              include: {
+                lectures: true
+              }
+            }
+          }
+        }
+      }
+    });
+
+    const freeCourseRoutes: MetadataRoute.Sitemap = [];
+    
+    courses.forEach(course => {
+      freeCourseRoutes.push({
+        url: `${baseUrl}/free-courses/${course.slug}`,
+        lastModified: course.updatedAt || new Date(),
+        changeFrequency: "monthly",
+        priority: 0.8,
+      });
+
+      course.subjects.forEach(subject => {
+        freeCourseRoutes.push({
+          url: `${baseUrl}/free-courses/${course.slug}/${subject.slug}`,
+          lastModified: subject.updatedAt || new Date(),
+          changeFrequency: "monthly",
+          priority: 0.7,
+        });
+
+        subject.chapters.forEach(chapter => {
+          chapter.lectures.forEach(lecture => {
+            freeCourseRoutes.push({
+              url: `${baseUrl}/free-courses/${course.slug}/${subject.slug}/${chapter.slug}/${lecture.slug}`,
+              lastModified: lecture.updatedAt || new Date(),
+              changeFrequency: "monthly",
+              priority: 0.6,
+            });
+          });
+        });
+      });
+    });
+
     // Return all combined
-    return [...staticRoutes, ...blogRoutes, ...quizRoutes];
+    return [...staticRoutes, ...blogRoutes, ...quizRoutes, ...freeCourseRoutes];
   } catch (error) {
     console.error("Error generating sitemap dynamic routes:", error);
     // Fallback to static routes if database fails

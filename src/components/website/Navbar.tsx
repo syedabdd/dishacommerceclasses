@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { Menu, X, Phone, ChevronDown } from "lucide-react";
+import { Menu, X, Phone, ChevronDown, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -22,14 +22,38 @@ const NavLink = ({
   label,
   active,
   onClick,
+  isMobile,
 }: {
   href: string;
   label: string;
   active: boolean;
   onClick?: () => void;
+  isMobile?: boolean;
 }) => {
-  const cls = `relative px-3 py-2 text-sm font-medium transition-colors duration-200 
+  const desktopCls = `relative px-3 py-2 text-sm font-medium transition-colors duration-200 
     ${active ? "text-[#1a2e6c]" : "text-slate-700 hover:text-[#1a2e6c]"}`;
+
+  const mobileCls = `flex items-center justify-between w-full px-4 py-3 text-[15px] font-semibold rounded-xl transition-all duration-200 ${
+    active
+      ? "bg-blue-50 text-[#1a2e6c]"
+      : "text-slate-600 hover:bg-slate-50 hover:text-[#1a2e6c]"
+  }`;
+
+  const cls = isMobile ? mobileCls : desktopCls;
+
+  const content = (
+    <>
+      {label}
+      {!isMobile && active && (
+        <span className="absolute bottom-0 left-3 right-3 h-0.5 bg-linear-to-r from-[#1a2e6c] to-[#c0202a] rounded-full" />
+      )}
+      {isMobile && (
+        <ChevronRight
+          className={`w-4 h-4 ${active ? "text-[#1a2e6c]" : "text-slate-400 opacity-50"}`}
+        />
+      )}
+    </>
+  );
 
   return href.startsWith("http") ? (
     <a
@@ -39,17 +63,11 @@ const NavLink = ({
       className={cls}
       onClick={onClick}
     >
-      {label}
-      {active && (
-        <span className="absolute bottom-0 left-3 right-3 h-0.5 bg-linear-to-r from-[#1a2e6c] to-[#c0202a] rounded-full" />
-      )}
+      {content}
     </a>
   ) : (
     <Link href={href} className={cls} onClick={onClick}>
-      {label}
-      {active && (
-        <span className="absolute bottom-0 left-3 right-3 h-0.5 bg-linear-to-r from-[#1a2e6c] to-[#c0202a] rounded-full" />
-      )}
+      {content}
     </Link>
   );
 };
@@ -179,42 +197,52 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {/* Mobile drawer */}
+      {/* Mobile drawer backdrop */}
       <div
-        className={`fixed inset-0 z-40 lg:hidden transition-opacity duration-300 ${menuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
+        className={`fixed inset-0 z-[60] lg:hidden transition-all duration-300 ${menuOpen ? "opacity-100 pointer-events-auto backdrop-blur-sm" : "opacity-0 pointer-events-none backdrop-blur-none"}`}
         onClick={() => setMenuOpen(false)}
-        style={{ background: "rgba(0,0,0,0.45)" }}
+        style={{
+          background: "rgba(15, 23, 42, 0.6)",
+        }}
       />
 
+      {/* Mobile drawer panel */}
       <div
-        className={`fixed top-0 right-0 z-50 h-full w-72 sm:w-80 bg-white shadow-2xl lg:hidden flex flex-col transition-transform duration-300 ${menuOpen ? "translate-x-0" : "translate-x-full"}`}
+        className={`fixed top-0 right-0 z-[70] h-[100dvh] w-[85vw] sm:w-80 bg-white shadow-2xl lg:hidden flex flex-col transition-transform duration-300 ease-in-out ${menuOpen ? "translate-x-0" : "translate-x-full"}`}
       >
         {/* Header */}
-        <div className="flex items-center justify-between p-5 border-b border-slate-100">
-          <div className="flex items-center gap-2.5">
-            <Image
-              src="/Logo.PNG"
-              alt="Logo"
-              width={40}
-              height={40}
-              className="object-contain"
-              priority
-              unoptimized
-            />
-            <p className="font-bold text-slate-900 text-sm leading-tight">
-              Disha Commerce Classes
-            </p>
+        <div className="flex items-center justify-between p-4 sm:p-5 border-b border-slate-100 bg-white">
+          <div className="flex items-center gap-3">
+            <div className="bg-slate-50 p-1 rounded-full border border-slate-100">
+              <Image
+                src="/Logo.PNG"
+                alt="Logo"
+                width={36}
+                height={36}
+                className="object-contain"
+                priority
+                unoptimized
+              />
+            </div>
+            <div>
+              <p className="font-bold text-slate-900 text-[15px] leading-tight">
+                Disha Commerce
+              </p>
+              <p className="text-[10px] tracking-wider text-slate-500 font-medium uppercase mt-0.5">
+                Menu
+              </p>
+            </div>
           </div>
           <button
             onClick={() => setMenuOpen(false)}
-            className="p-1.5 rounded-lg text-slate-500 hover:bg-slate-100"
+            className="p-2 rounded-full text-slate-400 hover:text-slate-600 hover:bg-slate-100 transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Links */}
-        <div className="flex-1 overflow-y-auto py-3 px-3 space-y-0.5">
+        <div className="flex-1 overflow-y-auto py-4 px-3 sm:px-4 space-y-1 bg-slate-50/50">
           {navLinks.map((l) => (
             <NavLink
               key={l.href}
@@ -222,42 +250,50 @@ export default function Navbar() {
               label={l.label}
               active={pathname === l.href}
               onClick={() => setMenuOpen(false)}
+              isMobile={true}
             />
           ))}
-          <hr className="my-2 border-slate-100" />
-          {moreLinks.map((l) =>
-            l.href.startsWith("http") ? (
-              <a
-                key={l.href}
-                href={l.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => setMenuOpen(false)}
-                className="block px-3 py-2.5 text-sm font-medium text-slate-600 hover:text-[#1a2e6c] hover:bg-[#c0202a]/10 rounded-lg transition-colors"
-              >
-                {l.label}
-              </a>
-            ) : (
-              <Link
-                key={l.href}
-                href={l.href}
-                onClick={() => setMenuOpen(false)}
-                className="block px-3 py-2.5 text-sm font-medium text-slate-600 hover:text-[#1a2e6c] hover:bg-[#c0202a]/10 rounded-lg transition-colors"
-              >
-                {l.label}
-              </Link>
-            ),
-          )}
+
+          <div className="pt-4 pb-2">
+            <p className="px-4 text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">
+              More Links
+            </p>
+            {moreLinks.map((l) =>
+              l.href.startsWith("http") ? (
+                <a
+                  key={l.href}
+                  href={l.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setMenuOpen(false)}
+                  className="flex items-center justify-between w-full px-4 py-3 text-[15px] font-semibold text-slate-600 hover:bg-slate-50 hover:text-[#1a2e6c] rounded-xl transition-all duration-200"
+                >
+                  {l.label}
+                  <ChevronRight className="w-4 h-4 text-slate-400 opacity-50" />
+                </a>
+              ) : (
+                <Link
+                  key={l.href}
+                  href={l.href}
+                  onClick={() => setMenuOpen(false)}
+                  className="flex items-center justify-between w-full px-4 py-3 text-[15px] font-semibold text-slate-600 hover:bg-slate-50 hover:text-[#1a2e6c] rounded-xl transition-all duration-200"
+                >
+                  {l.label}
+                  <ChevronRight className="w-4 h-4 text-slate-400 opacity-50" />
+                </Link>
+              ),
+            )}
+          </div>
         </div>
 
         {/* Footer CTA */}
-        <div className="p-4 border-t border-slate-100">
+        <div className="p-4 sm:p-5 border-t border-slate-100 bg-white shadow-[0_-4px_20px_-10px_rgba(0,0,0,0.05)]">
           <a
             href="tel:+917700879453"
-            className="flex items-center justify-center gap-2 w-full py-3 bg-green-600 hover:bg-green-700 text-white text-sm font-semibold rounded-xl transition-colors"
+            className="flex items-center justify-center  gap-2.5 w-full py-3.5 bg-green-600 hover:bg-green-700 !text-white text-[15px] font-bold rounded-xl transition-colors shadow-lg shadow-green-600/20 active:scale-[0.98]"
           >
-            <Phone className="w-4 h-4" />
-            +91 77008 79453
+            <Phone className="w-5 h-5 fill-white/20" />
+            Call +91 77008 79453
           </a>
         </div>
       </div>

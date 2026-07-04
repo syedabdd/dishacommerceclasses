@@ -42,7 +42,7 @@ export default function Toppers() {
 
   return (
     <section
-      className="relative overflow-hidden py-28"
+      className="relative overflow-hidden py-16 lg:py-28"
       style={{
         backgroundColor: "var(--bg-section)",
         borderTop: "1px solid var(--border-color)",
@@ -85,7 +85,7 @@ export default function Toppers() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
-              className="text-4xl md:text-5xl lg:text-6xl font-black leading-tight"
+              className="text-3xl sm:text-5xl lg:text-6xl font-black leading-tight"
               style={{ color: "var(--text-primary)" }}
             >
               Our State{" "}

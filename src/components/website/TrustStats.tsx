@@ -91,7 +91,7 @@ export default function TrustStats() {
             <div className="absolute top-0 left-8 right-8 h-px bg-linear-to-r from-transparent via-white to-transparent" />
 
             {/* Stats Grid */}
-            <div className="grid grid-cols-2 lg:grid-cols-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
               {stats.map((stat, i) => {
                 const g = gradients[i];
                 const isLast = i === stats.length - 1;
@@ -104,9 +104,9 @@ export default function TrustStats() {
                     viewport={{ once: true }}
                     transition={{ duration: 0.5, delay: 0.2 + i * 0.1 }}
                     whileHover={{ y: -3 }}
-                    className={`group relative flex flex-col items-center justify-center gap-3 px-6 py-7 md:py-9 transition-all duration-300 cursor-default
-                      ${!isLast ? "border-r border-b lg:border-b-0 border-slate-200/70" : "border-b lg:border-b-0 border-slate-200/70"}
-                      ${i >= 2 ? "border-b-0" : ""}
+                    className={`group relative flex flex-col items-center justify-center gap-3 px-2 sm:px-6 py-6 md:py-9 transition-all duration-300 cursor-default
+                      ${!isLast ? "border-b sm:border-r lg:border-b-0 border-slate-200/70" : "border-slate-200/70"}
+                      ${i >= 2 ? "sm:border-b-0" : ""}
                     `}
                   >
                     {/* Hover glow */}

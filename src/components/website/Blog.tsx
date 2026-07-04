@@ -42,8 +42,8 @@ export default function Blog() {
       <div className="container mx-auto px-4 lg:px-8 relative z-10">
         
         {/* Header & Search */}
-        <div className="flex flex-col md:flex-row justify-between items-end gap-6 mb-12">
-          <div>
+        <div className="flex flex-col md:flex-row justify-between items-center md:items-end gap-6 mb-12">
+          <div className="text-center md:text-left flex flex-col items-center md:items-start">
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-red-200 bg-red-50 text-red-600 text-sm font-bold shadow-sm mb-4">
               <TrendingUp className="w-4 h-4" />
               Editorial

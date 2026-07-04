@@ -84,7 +84,7 @@ export default function Hero2() {
           initial="hidden"
           animate={inView ? "show" : "hidden"}
           custom={1}
-          className="text-5xl sm:text-6xl xl:text-[4rem] font-extrabold leading-tight tracking-tight max-w-4xl"
+          className="text-4xl sm:text-5xl lg:text-6xl font-black text-white leading-[1.1] tracking-tight mb-6 max-w-4xl"
           style={{ color: "var(--text-primary)" }}
         >
           The Next Generation of
@@ -180,7 +180,7 @@ export default function Hero2() {
           <Image
             src="/welcome.webp"
             alt="Disha Commerce Educator"
-            className="relative z-10 w-full max-w-lg object-contain drop-shadow-2xl"
+            className="relative z-10 w-full max-w-lg lg:mb-0 mb-9 object-contain drop-shadow-2xl"
             width={600}
             height={600}
             priority={true}
