@@ -1,54 +1,50 @@
-import { cookies } from "next/headers";
-import jwt from "jsonwebtoken";
 import { db } from "@/lib/db";
-
-import LoginForm from "@/features/auth/components/LoginForm";
 import Dashboard from "@/components/admin/Dashboard";
 
 export default async function AdminPage() {
-  const cookieStore = await cookies();
+  let totalDoubts = 0;
+  let studyMaterials = 0;
+  let liveVisitors = 0;
+  let todaysTraffic = 0;
+  const recentFeedback: any[] = [];
 
-  const token = cookieStore.get("adminToken")?.value;
+  try {
+    // Use raw mysql queries to avoid Prisma client initialization issues
+    const [doubtsResult]: any = await db.execute(
+      "SELECT COUNT(*) as count FROM ask_doubts"
+    );
+    totalDoubts = Number(doubtsResult[0]?.count) || 0;
 
-  let admin = null;
-
-  if (token) {
-    try {
-      admin = jwt.verify(token, process.env.JWT_SECRET!);
-    } catch {}
+    const [materialsResult]: any = await db.execute(
+      "SELECT COUNT(*) as count FROM blogs"
+    );
+    studyMaterials = Number(materialsResult[0]?.count) || 0;
+  } catch (err) {
+    console.error("[AdminPage] Error fetching core metrics:", err);
   }
 
-  if (!admin) {
-    return <LoginForm />;
+  try {
+    // Live Visitors (active within the last 5 minutes)
+    const [liveVisitorsResult]: any = await db.execute(
+      "SELECT COUNT(*) as count FROM VisitorAnalytics WHERE lastActivity >= DATE_SUB(NOW(), INTERVAL 5 MINUTE)"
+    );
+    liveVisitors = Number(liveVisitorsResult[0]?.count) || 0;
+
+    // Today's Traffic (new sessions created today)
+    const [todayTrafficResult]: any = await db.execute(
+      "SELECT COUNT(*) as count FROM VisitorAnalytics WHERE DATE(createdAt) = CURDATE()"
+    );
+    todaysTraffic = Number(todayTrafficResult[0]?.count) || 0;
+  } catch (err) {
+    // VisitorAnalytics table may not exist yet — fail gracefully
+    console.error("[AdminPage] VisitorAnalytics table not available:", err);
   }
-
-  // Use raw mysql queries to avoid Prisma 7 client initialization issues
-  const [doubtsResult]: any = await db.execute("SELECT COUNT(*) as count FROM ask_doubts");
-  const totalDoubts = doubtsResult[0]?.count || 0;
-
-  const [materialsResult]: any = await db.execute("SELECT COUNT(*) as count FROM ScienceLab");
-  const studyMaterials = materialsResult[0]?.count || 0;
-
-  const [recentFeedback]: any = await db.execute(
-    "SELECT * FROM ScienceLabFeedback ORDER BY createdAt DESC LIMIT 10"
-  );
-
-  // Live Visitors (active within the last 5 minutes)
-  const [liveVisitorsResult]: any = await db.execute(
-    "SELECT COUNT(*) as count FROM VisitorAnalytics WHERE lastActivity >= DATE_SUB(NOW(), INTERVAL 5 MINUTE)"
-  );
-  const liveVisitors = liveVisitorsResult[0]?.count || 0;
-
-  // Today's Traffic (new sessions created today)
-  const [todayTrafficResult]: any = await db.execute(
-    "SELECT COUNT(*) as count FROM VisitorAnalytics WHERE DATE(createdAt) = CURDATE()"
-  );
-  const todaysTraffic = todayTrafficResult[0]?.count || 0;
 
   return (
-    <Dashboard 
-      metrics={{ totalDoubts, studyMaterials, liveVisitors, todaysTraffic }} 
-      recentFeedback={recentFeedback} 
+    <Dashboard
+      metrics={{ totalDoubts, studyMaterials, liveVisitors, todaysTraffic }}
+      recentFeedback={recentFeedback}
     />
   );
 }
+
