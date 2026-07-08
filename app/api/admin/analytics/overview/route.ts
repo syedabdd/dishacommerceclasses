@@ -1,39 +1,43 @@
 import { NextResponse } from 'next/server';
-import { prisma } from '@/lib/prisma';
+import { db } from '@/lib/db';
 
 export async function GET() {
   try {
     const now = new Date();
-    
-    // Live: last 5 minutes
-    const fiveMinsAgo = new Date(now.getTime() - 5 * 60 * 1000);
-    
-    // Today
-    const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-    
-    // This Week (starting Sunday)
-    const startOfWeek = new Date(startOfToday);
-    startOfWeek.setDate(startOfWeek.getDate() - startOfWeek.getDay());
-    
-    // This Month
-    const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
 
-    const [liveCount, todayCount, weekCount, monthCount, totalCount] = await Promise.all([
-      prisma.visitorAnalytics.count({ where: { lastActivity: { gte: fiveMinsAgo } } }),
-      prisma.visitorAnalytics.count({ where: { createdAt: { gte: startOfToday } } }),
-      prisma.visitorAnalytics.count({ where: { createdAt: { gte: startOfWeek } } }),
-      prisma.visitorAnalytics.count({ where: { createdAt: { gte: startOfMonth } } }),
-      prisma.visitorAnalytics.count(),
-    ]);
+    // Live: last 5 minutes
+    const [liveResult]: any = await db.execute(
+      "SELECT COUNT(*) as count FROM VisitorAnalytics WHERE lastActivity >= DATE_SUB(NOW(), INTERVAL 5 MINUTE)"
+    );
+
+    // Today
+    const [todayResult]: any = await db.execute(
+      "SELECT COUNT(*) as count FROM VisitorAnalytics WHERE DATE(createdAt) = CURDATE()"
+    );
+
+    // This Week (Sunday to today)
+    const [weekResult]: any = await db.execute(
+      "SELECT COUNT(*) as count FROM VisitorAnalytics WHERE createdAt >= DATE_SUB(CURDATE(), INTERVAL WEEKDAY(CURDATE()) + 1 DAY)"
+    );
+
+    // This Month
+    const [monthResult]: any = await db.execute(
+      "SELECT COUNT(*) as count FROM VisitorAnalytics WHERE MONTH(createdAt) = MONTH(NOW()) AND YEAR(createdAt) = YEAR(NOW())"
+    );
+
+    // Total
+    const [totalResult]: any = await db.execute(
+      "SELECT COUNT(*) as count FROM VisitorAnalytics"
+    );
 
     return NextResponse.json({
       success: true,
       data: {
-        live: liveCount,
-        today: todayCount,
-        week: weekCount,
-        month: monthCount,
-        total: totalCount,
+        live: Number(liveResult[0]?.count) || 0,
+        today: Number(todayResult[0]?.count) || 0,
+        week: Number(weekResult[0]?.count) || 0,
+        month: Number(monthResult[0]?.count) || 0,
+        total: Number(totalResult[0]?.count) || 0,
       }
     });
   } catch (error: any) {

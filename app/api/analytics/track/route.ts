@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { prisma } from '@/lib/prisma';
+import { db } from '@/lib/db';
 
 export async function POST(request: Request) {
   try {
@@ -17,35 +17,46 @@ export async function POST(request: Request) {
     let city = 'Unknown';
 
     // If it's a valid remote IP, fetch location
-    if (ip && ip !== '127.0.0.1' && ip !== '::1' && !ip.startsWith('192.168.')) {
+    if (ip && ip !== '127.0.0.1' && ip !== '::1' && !ip.startsWith('192.168.') && !ip.startsWith('10.')) {
       try {
-        const geoRes = await fetch(`http://ip-api.com/json/${ip}?fields=status,country,regionName,city`);
-        const geo = await geoRes.json();
-        if (geo.status === 'success') {
-          country = geo.country || 'Unknown';
-          state = geo.regionName || 'Unknown';
-          city = geo.city || 'Unknown';
+        // Using ipapi.co (HTTPS, no API key needed, 1000 req/day free)
+        const geoRes = await fetch(`https://ipapi.co/${ip}/json/`, {
+          headers: { 'User-Agent': 'DishaCommerce/1.0' },
+        });
+        if (geoRes.ok) {
+          const geo = await geoRes.json();
+          if (!geo.error) {
+            country = geo.country_name || 'Unknown';
+            state = geo.region || 'Unknown';
+            city = geo.city || 'Unknown';
+          }
         }
       } catch (err) {
         console.error('Geolocation error:', err);
       }
     }
 
-    // Upsert VisitorAnalytics record
-    const visitor = await prisma.visitorAnalytics.upsert({
-      where: { sessionId },
-      update: {
-        lastActivity: new Date(),
-      },
-      create: {
-        sessionId,
-        country,
-        state,
-        city,
-      },
-    });
+    // Upsert using raw SQL — check if sessionId exists first
+    const [existing]: any = await db.execute(
+      'SELECT id FROM VisitorAnalytics WHERE sessionId = ? LIMIT 1',
+      [sessionId]
+    );
 
-    return NextResponse.json({ success: true, visitorId: visitor.id });
+    if (existing.length > 0) {
+      // Update lastActivity only
+      await db.execute(
+        'UPDATE VisitorAnalytics SET lastActivity = NOW() WHERE sessionId = ?',
+        [sessionId]
+      );
+    } else {
+      // Insert new visitor
+      await db.execute(
+        'INSERT INTO VisitorAnalytics (sessionId, country, state, city, createdAt, lastActivity) VALUES (?, ?, ?, ?, NOW(), NOW())',
+        [sessionId, country, state, city]
+      );
+    }
+
+    return NextResponse.json({ success: true });
   } catch (error) {
     console.error('Visitor tracking error:', error);
     return NextResponse.json({ error: 'Failed to track visitor' }, { status: 500 });
