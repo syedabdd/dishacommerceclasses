@@ -174,7 +174,7 @@ export default function RootLayout({
           }}
         />
         {children}
-        {/* <VisitorTracker /> */}
+        <VisitorTracker />
       </body>
     </html>
   );
