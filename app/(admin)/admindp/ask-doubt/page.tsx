@@ -6,9 +6,15 @@ import toast from "react-hot-toast";
 import ConfirmDeleteModal from "@/components/admin/ui/ConfirmDeleteModal";
 import TableSkeleton from "@/components/admin/ui/TableSkeleton";
 import { getDoubts, updateDoubtStatus, deleteDoubt } from "./actions";
+import { useSearchParams } from "next/navigation";
+import Pagination from "@/components/ui/Pagination";
 
 export default function AskDoubtPage() {
+  const searchParams = useSearchParams();
+  const page = parseInt(searchParams.get("page") || "1", 10);
+
   const [doubts, setDoubts] = useState<any[]>([]);
+  const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("All Statuses");
@@ -20,14 +26,17 @@ export default function AskDoubtPage() {
 
   const fetchDoubts = async () => {
     setLoading(true);
-    const data = await getDoubts();
-    setDoubts(data);
+    const result = await getDoubts(page, 20);
+    if (result.success) {
+      setDoubts(result.data || []);
+      setTotalPages(result.totalPages || 1);
+    }
     setLoading(false);
   };
 
   useEffect(() => {
     fetchDoubts();
-  }, []);
+  }, [page]);
 
   const handleStatusUpdate = async (id: number, newStatus: string) => {
     setUpdatingId(id);
@@ -287,6 +296,11 @@ export default function AskDoubtPage() {
                 )}
               </tbody>
             </table>
+          </div>
+        )}
+        {totalPages > 1 && (
+          <div className="mt-6 border-t border-slate-200 pt-6 px-6 pb-6">
+            <Pagination currentPage={page} totalPages={totalPages} baseUrl="/admindp/ask-doubt" />
           </div>
         )}
       </div>

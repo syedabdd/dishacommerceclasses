@@ -85,13 +85,32 @@ export async function updateBlog(id: number, formData: FormData) {
   }
 }
 
-export async function getBlogs() {
+export async function getBlogs(page: number = 1, limit: number = 10, search: string = "") {
   try {
-    const [rows] = await db.execute("SELECT * FROM blogs ORDER BY created_at DESC");
-    return rows as any[];
+    const offset = (page - 1) * limit;
+    
+    let query = "SELECT * FROM blogs";
+    let countQuery = "SELECT COUNT(*) as count FROM blogs";
+    let params: any[] = [];
+    
+    if (search) {
+      query += " WHERE title LIKE ?";
+      countQuery += " WHERE title LIKE ?";
+      params.push(`%${search}%`);
+    }
+    
+    query += ` ORDER BY created_at DESC LIMIT ${limit} OFFSET ${offset}`;
+    
+    const [rows] = await db.execute(query, params);
+    const [countRows]: any = await db.execute(countQuery, params);
+    
+    const total = countRows[0].count;
+    const totalPages = Math.ceil(total / limit);
+    
+    return { data: rows as any[], totalPages, currentPage: page };
   } catch (error) {
     console.error("Error fetching blogs:", error);
-    return [];
+    return { data: [], totalPages: 1, currentPage: page };
   }
 }
 

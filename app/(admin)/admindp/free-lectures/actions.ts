@@ -63,28 +63,35 @@ export async function deleteLecture(id: number) {
   }
 }
 
-export async function getLectures() {
+export async function getLectures(page: number = 1, limit: number = 20) {
   try {
-    const lectures = await prisma.freeCourseLecture.findMany({
-      include: { 
-        chapter: {
-          include: {
-            subject: {
-              include: {
-                course: true
+    const skip = (page - 1) * limit;
+    const [lectures, total] = await Promise.all([
+      prisma.freeCourseLecture.findMany({
+        skip,
+        take: limit,
+        include: { 
+          chapter: {
+            include: {
+              subject: {
+                include: {
+                  course: true
+                }
               }
             }
-          }
-        } 
-      },
-      orderBy: [
-        { chapter: { subject: { courseId: 'asc' } } },
-        { chapter: { subjectId: 'asc' } },
-        { chapterId: 'asc' },
-        { displayOrder: 'asc' }
-      ],
-    });
-    return { success: true, data: lectures };
+          } 
+        },
+        orderBy: [
+          { chapter: { subject: { courseId: 'asc' } } },
+          { chapter: { subjectId: 'asc' } },
+          { chapterId: 'asc' },
+          { displayOrder: 'asc' }
+        ],
+      }),
+      prisma.freeCourseLecture.count()
+    ]);
+    const totalPages = Math.ceil(total / limit);
+    return { success: true, data: lectures, totalPages };
   } catch (error: any) {
     console.error("Failed to get lectures:", error);
     return { success: false, error: error.message || "Failed to get lectures" };

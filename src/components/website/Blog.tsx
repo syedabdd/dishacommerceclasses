@@ -1,21 +1,51 @@
 "use client";
 
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Calendar, Clock, Search, BookOpen, ArrowRight, TrendingUp } from "lucide-react";
+import { Calendar, BookOpen, ArrowRight, TrendingUp, Search as SearchIcon } from "lucide-react";
 import Link from "next/link";
+import { useSearchParams, useRouter, usePathname } from "next/navigation";
 import { getBlogs } from "../../../app/(admin)/admindp/blog/actions";
+import Pagination from "../ui/Pagination";
 
 export default function Blog() {
-  const [blogs, setBlogs] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [search, setSearch] = useState("");
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
 
+  const page = parseInt(searchParams.get("page") || "1", 10);
+  const searchParamValue = searchParams.get("search") || "";
+
+  const [blogs, setBlogs] = useState<any[]>([]);
+  const [totalPages, setTotalPages] = useState(1);
+  const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState(searchParamValue);
+  const [debouncedSearch, setDebouncedSearch] = useState(searchParamValue);
+
+  // Debounce search input
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedSearch(search);
+      // Update URL if search changed from what's in URL
+      if (search !== searchParamValue) {
+        const params = new URLSearchParams(searchParams.toString());
+        if (search) params.set("search", search);
+        else params.delete("search");
+        params.set("page", "1");
+        router.push(`${pathname}?${params.toString()}`, { scroll: false });
+      }
+    }, 500);
+    return () => clearTimeout(handler);
+  }, [search, router, pathname, searchParams, searchParamValue]);
+
+  // Fetch blogs based on page and search
   useEffect(() => {
     const fetchBlogs = async () => {
+      setLoading(true);
       try {
-        const data = await getBlogs();
-        setBlogs(data);
+        const result = await getBlogs(page, 10, debouncedSearch);
+        setBlogs(result.data || []);
+        setTotalPages(result.totalPages || 1);
       } catch (error) {
         console.error("Failed to fetch blogs", error);
       } finally {
@@ -24,19 +54,10 @@ export default function Blog() {
     };
 
     fetchBlogs();
-  }, []);
-
-  const filteredBlogs = useMemo(() => {
-    return blogs.filter((blog) =>
-      blog.title?.toLowerCase().includes(search.toLowerCase()),
-    );
-  }, [blogs, search]);
-
-  const featuredBlog = filteredBlogs[0];
-  const regularBlogs = filteredBlogs.slice(1);
+  }, [page, debouncedSearch]);
 
   return (
-    <section className="py-20 bg-slate-50 relative">
+    <section className="py-20 bg-slate-50 relative min-h-screen">
       <div className="absolute top-0 right-0 w-1/3 h-[400px] bg-red-50 rounded-bl-[100px] opacity-60 pointer-events-none" />
 
       <div className="container mx-auto px-4 lg:px-8 relative z-10">
@@ -54,7 +75,7 @@ export default function Blog() {
           </div>
 
           <div className="relative w-full md:w-[320px]">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
+            <SearchIcon className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400" />
             <input
               type="text"
               placeholder="Search articles..."
@@ -70,7 +91,7 @@ export default function Blog() {
           <div className="flex justify-center py-24">
             <div className="w-12 h-12 rounded-full border-4 border-red-600 border-t-transparent animate-spin" />
           </div>
-        ) : filteredBlogs.length === 0 ? (
+        ) : blogs.length === 0 ? (
           <div className="bg-white rounded-3xl border border-slate-200 p-16 text-center shadow-sm">
             <BookOpen className="w-16 h-16 text-slate-300 mx-auto mb-4" />
             <h3 className="text-2xl font-bold text-slate-800 mb-2">No Articles Found</h3>
@@ -78,7 +99,7 @@ export default function Blog() {
           </div>
         ) : (
           <div className="max-w-5xl mx-auto flex flex-col gap-6">
-            {filteredBlogs.map((blog, index) => (
+            {blogs.map((blog, index) => (
               <motion.div
                 key={blog.id}
                 initial={{ opacity: 0, y: 20 }}
@@ -128,6 +149,15 @@ export default function Blog() {
                 </Link>
               </motion.div>
             ))}
+
+            {/* Pagination */}
+            {totalPages > 1 && (
+              <Pagination 
+                currentPage={page} 
+                totalPages={totalPages} 
+                baseUrl="/blog" 
+              />
+            )}
           </div>
         )}
       </div>

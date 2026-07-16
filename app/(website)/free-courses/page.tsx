@@ -11,9 +11,18 @@ export const metadata: Metadata = {
 import { getPublicCourses } from './actions';
 import Image from 'next/image';
 
-export default async function FreeCoursesPage() {
-  const result = await getPublicCourses();
-  const coursesData = (result.success && result.data) ? result.data : [];
+import Pagination from '@/components/ui/Pagination';
+
+type Props = {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+};
+
+export default async function FreeCoursesPage({ searchParams }: Props) {
+  const params = await searchParams;
+  const page = typeof params.page === 'string' ? parseInt(params.page, 10) : 1;
+  const result = await getPublicCourses(page, 10);
+  const coursesData = (result.success && result.data) ? result.data.courses : [];
+  const totalPages = (result.success && result.data) ? result.data.totalPages : 1;
   return (
     <main className="min-h-screen pt-28 pb-20 relative bg-slate-50/30 overflow-hidden font-sans">
       {/* Graph Paper Grid Background */}
@@ -92,6 +101,12 @@ export default async function FreeCoursesPage() {
             })
           )}
         </div>
+        
+        {totalPages > 1 && (
+          <div className="mt-8">
+            <Pagination currentPage={page} totalPages={totalPages} baseUrl="/free-courses" />
+          </div>
+        )}
         
       </div>
     </main>

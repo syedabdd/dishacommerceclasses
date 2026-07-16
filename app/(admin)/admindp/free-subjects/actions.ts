@@ -46,16 +46,23 @@ export async function deleteSubject(id: number) {
   }
 }
 
-export async function getSubjects() {
+export async function getSubjects(page: number = 1, limit: number = 20) {
   try {
-    const subjects = await prisma.freeCourseSubject.findMany({
-      include: { course: true },
-      orderBy: [
-        { courseId: 'asc' },
-        { displayOrder: 'asc' }
-      ],
-    });
-    return { success: true, data: subjects };
+    const skip = (page - 1) * limit;
+    const [subjects, total] = await Promise.all([
+      prisma.freeCourseSubject.findMany({
+        skip,
+        take: limit,
+        include: { course: true },
+        orderBy: [
+          { courseId: 'asc' },
+          { displayOrder: 'asc' }
+        ],
+      }),
+      prisma.freeCourseSubject.count()
+    ]);
+    const totalPages = Math.ceil(total / limit);
+    return { success: true, data: subjects, totalPages };
   } catch (error: any) {
     console.error("Failed to get subjects:", error);
     return { success: false, error: error.message || "Failed to get subjects" };

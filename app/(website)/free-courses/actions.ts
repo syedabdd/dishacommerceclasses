@@ -2,19 +2,29 @@
 
 import { prisma } from "@/lib/prisma";
 
-export async function getPublicCourses() {
+export async function getPublicCourses(page: number = 1, limit: number = 10) {
   try {
-    const courses = await prisma.freeCourse.findMany({
-      include: {
-        subjects: {
-          include: {
-            chapters: true
+    const skip = (page - 1) * limit;
+
+    const [courses, total] = await Promise.all([
+      prisma.freeCourse.findMany({
+        skip,
+        take: limit,
+        include: {
+          subjects: {
+            include: {
+              chapters: true
+            }
           }
-        }
-      },
-      orderBy: { displayOrder: 'asc' },
-    });
-    return { success: true, data: courses };
+        },
+        orderBy: { displayOrder: 'asc' },
+      }),
+      prisma.freeCourse.count()
+    ]);
+
+    const totalPages = Math.ceil(total / limit);
+
+    return { success: true, data: { courses, totalPages, currentPage: page } };
   } catch (error: any) {
     return { success: false, error: error.message };
   }

@@ -3,11 +3,17 @@
 import React, { useEffect, useState } from "react";
 import { Users, UserCheck, CalendarDays, Calendar, Globe, MapPin, RefreshCw } from "lucide-react";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
+import { useSearchParams } from "next/navigation";
+import Pagination from "@/components/ui/Pagination";
 
 export default function AnalyticsDashboard() {
+  const searchParams = useSearchParams();
+  const page = parseInt(searchParams.get("page") || "1", 10);
+
   const [overview, setOverview] = useState<any>(null);
   const [charts, setCharts] = useState<any>(null);
   const [visitors, setVisitors] = useState<any[]>([]);
+  const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(true);
   const [lastRefreshed, setLastRefreshed] = useState(new Date());
 
@@ -16,7 +22,7 @@ export default function AnalyticsDashboard() {
       const [overviewRes, chartsRes, visitorsRes] = await Promise.all([
         fetch("/api/admin/analytics/overview"),
         fetch("/api/admin/analytics/charts"),
-        fetch("/api/admin/analytics/visitors?limit=20")
+        fetch(`/api/admin/analytics/visitors?limit=20&page=${page}`)
       ]);
 
       if (overviewRes.ok) {
@@ -29,7 +35,10 @@ export default function AnalyticsDashboard() {
       }
       if (visitorsRes.ok) {
         const d = await visitorsRes.json();
-        if (d.success) setVisitors(d.data);
+        if (d.success) {
+          setVisitors(d.data);
+          setTotalPages(d.totalPages || 1);
+        }
       }
       setLastRefreshed(new Date());
     } catch (err) {
@@ -45,7 +54,7 @@ export default function AnalyticsDashboard() {
       fetchData();
     }, 10000); // 10 seconds auto-refresh
     return () => clearInterval(interval);
-  }, []);
+  }, [page]);
 
   if (loading && !overview) {
     return <div className="p-8 text-center text-slate-500">Loading Analytics...</div>;
@@ -205,6 +214,11 @@ export default function AnalyticsDashboard() {
             </tbody>
           </table>
         </div>
+        {totalPages > 1 && (
+          <div className="mt-6 border-t border-slate-200 pt-6 px-6 pb-6">
+            <Pagination currentPage={page} totalPages={totalPages} baseUrl="/admindp/analytics" />
+          </div>
+        )}
       </div>
     </div>
   );

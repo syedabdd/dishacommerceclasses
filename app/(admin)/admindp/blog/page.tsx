@@ -8,13 +8,19 @@ import {
 } from "lucide-react";
 import { createBlog, getBlogs, deleteBlog, updateBlog } from "./actions";
 import dynamic from "next/dynamic";
+import { useSearchParams } from "next/navigation";
+import Pagination from "@/components/ui/Pagination";
 import ConfirmDeleteModal from "@/components/admin/ui/ConfirmDeleteModal";
 import TableSkeleton from "@/components/admin/ui/TableSkeleton";
 
 const SummernoteEditor = dynamic(() => import("@/components/admin/SummernoteEditor"), { ssr: false });
 
 export default function BlogDashboard() {
+  const searchParams = useSearchParams();
+  const page = parseInt(searchParams.get("page") || "1", 10);
+
   const [blogs, setBlogs] = useState<any[]>([]);
+  const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(true);
   
   // Form State
@@ -37,14 +43,15 @@ export default function BlogDashboard() {
 
   const fetchBlogs = async () => {
     setLoading(true);
-    const data = await getBlogs();
-    setBlogs(data);
+    const result = await getBlogs(page, 20);
+    setBlogs(result.data || []);
+    setTotalPages(result.totalPages || 1);
     setLoading(false);
   };
 
   useEffect(() => {
     fetchBlogs();
-  }, []);
+  }, [page]);
 
 
   const resetForm = () => {
@@ -347,6 +354,11 @@ export default function BlogDashboard() {
                 ))}
               </tbody>
             </table>
+          </div>
+        )}
+        {totalPages > 1 && (
+          <div className="mt-6 border-t border-slate-200 pt-6">
+            <Pagination currentPage={page} totalPages={totalPages} baseUrl="/admindp/blog" />
           </div>
         )}
       </div>

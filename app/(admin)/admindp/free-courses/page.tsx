@@ -4,13 +4,19 @@ import React, { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 import { List as ListIcon, Edit, Trash2, Plus, LayoutDashboard, ChevronRight } from "lucide-react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
+import Pagination from "@/components/ui/Pagination";
 import FreeCoursesNav from "@/components/admin/FreeCoursesNav";
 import { createCourse, getCourses, deleteCourse, updateCourse } from "./actions";
 import ConfirmDeleteModal from "@/components/admin/ui/ConfirmDeleteModal";
 import TableSkeleton from "@/components/admin/ui/TableSkeleton";
 
 export default function FreeCoursesDashboard() {
+  const searchParams = useSearchParams();
+  const page = parseInt(searchParams.get("page") || "1", 10);
+
   const [courses, setCourses] = useState<any[]>([]);
+  const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(true);
   
   // Form State
@@ -31,16 +37,17 @@ export default function FreeCoursesDashboard() {
 
   const fetchCourses = async () => {
     setLoading(true);
-    const result = await getCourses();
+    const result = await getCourses(page, 20);
     if (result.success) {
       setCourses(result.data || []);
+      setTotalPages(result.totalPages || 1);
     }
     setLoading(false);
   };
 
   useEffect(() => {
     fetchCourses();
-  }, []);
+  }, [page]);
 
   // Simple slug generator
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -261,6 +268,11 @@ export default function FreeCoursesDashboard() {
                 ))}
               </tbody>
             </table>
+          </div>
+        )}
+        {totalPages > 1 && (
+          <div className="mt-6 border-t border-slate-200 pt-6 px-6 pb-6">
+            <Pagination currentPage={page} totalPages={totalPages} baseUrl="/admindp/free-courses" />
           </div>
         )}
       </div>

@@ -4,15 +4,23 @@ import { prisma } from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
 
 // Ensure Prisma enum is used
-export async function getQuizzes() {
-  return await prisma.quiz.findMany({
-    orderBy: { createdAt: 'desc' },
-    include: {
-      _count: {
-        select: { questions: true }
+export async function getQuizzes(page: number = 1, limit: number = 20) {
+  const skip = (page - 1) * limit;
+  const [quizzes, total] = await Promise.all([
+    prisma.quiz.findMany({
+      skip,
+      take: limit,
+      orderBy: { createdAt: 'desc' },
+      include: {
+        _count: {
+          select: { questions: true }
+        }
       }
-    }
-  });
+    }),
+    prisma.quiz.count()
+  ]);
+  const totalPages = Math.ceil(total / limit);
+  return { success: true, data: quizzes, totalPages };
 }
 
 export async function getQuizById(id: number) {

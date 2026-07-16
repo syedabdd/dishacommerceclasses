@@ -11,14 +11,20 @@ import { getCoursesList } from "../free-subjects/actions";
 import { getSubjectsByCourse } from "../free-chapters/actions";
 import ConfirmDeleteModal from "@/components/admin/ui/ConfirmDeleteModal";
 import TableSkeleton from "@/components/admin/ui/TableSkeleton";
+import { useSearchParams } from "next/navigation";
+import Pagination from "@/components/ui/Pagination";
 
 const SummernoteEditor = dynamic(() => import("@/components/admin/SummernoteEditor"), { ssr: false });
 
 export default function FreeLecturesDashboard() {
+  const searchParams = useSearchParams();
+  const page = parseInt(searchParams.get("page") || "1", 10);
+
   const [lectures, setLectures] = useState<any[]>([]);
   const [courses, setCourses] = useState<any[]>([]);
   const [subjects, setSubjects] = useState<any[]>([]);
   const [chapters, setChapters] = useState<any[]>([]);
+  const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(true);
   
   // Form State
@@ -42,15 +48,18 @@ export default function FreeLecturesDashboard() {
 
   const fetchInitialData = async () => {
     setLoading(true);
-    const [lecRes, crsRes] = await Promise.all([getLectures(), getCoursesList()]);
-    if (lecRes.success) setLectures(lecRes.data || []);
+    const [lecRes, crsRes] = await Promise.all([getLectures(page, 20), getCoursesList()]);
+    if (lecRes.success) {
+      setLectures(lecRes.data || []);
+      setTotalPages(lecRes.totalPages || 1);
+    }
     if (crsRes.success) setCourses(crsRes.data || []);
     setLoading(false);
   };
 
   useEffect(() => {
     fetchInitialData();
-  }, []);
+  }, [page]);
 
   const fetchSubjectsForCourse = async (cId: number) => {
     const res = await getSubjectsByCourse(cId);
@@ -416,6 +425,11 @@ export default function FreeLecturesDashboard() {
                 ))}
               </tbody>
             </table>
+          </div>
+        )}
+        {totalPages > 1 && (
+          <div className="mt-6 border-t border-slate-200 pt-6 px-6 pb-6">
+            <Pagination currentPage={page} totalPages={totalPages} baseUrl="/admindp/free-lectures" />
           </div>
         )}
       </div>

@@ -8,10 +8,16 @@ import FreeCoursesNav from "@/components/admin/FreeCoursesNav";
 import { createSubject, getSubjects, deleteSubject, updateSubject, getCoursesList } from "./actions";
 import ConfirmDeleteModal from "@/components/admin/ui/ConfirmDeleteModal";
 import TableSkeleton from "@/components/admin/ui/TableSkeleton";
+import { useSearchParams } from "next/navigation";
+import Pagination from "@/components/ui/Pagination";
 
 export default function FreeSubjectsDashboard() {
+  const searchParams = useSearchParams();
+  const page = parseInt(searchParams.get("page") || "1", 10);
+
   const [subjects, setSubjects] = useState<any[]>([]);
   const [courses, setCourses] = useState<any[]>([]);
+  const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(true);
   
   // Form State
@@ -29,15 +35,18 @@ export default function FreeSubjectsDashboard() {
 
   const fetchData = async () => {
     setLoading(true);
-    const [subRes, crsRes] = await Promise.all([getSubjects(), getCoursesList()]);
-    if (subRes.success) setSubjects(subRes.data || []);
+    const [subRes, crsRes] = await Promise.all([getSubjects(page, 20), getCoursesList()]);
+    if (subRes.success) {
+      setSubjects(subRes.data || []);
+      setTotalPages(subRes.totalPages || 1);
+    }
     if (crsRes.success) setCourses(crsRes.data || []);
     setLoading(false);
   };
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [page]);
 
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value;
@@ -243,6 +252,11 @@ export default function FreeSubjectsDashboard() {
                 ))}
               </tbody>
             </table>
+          </div>
+        )}
+        {totalPages > 1 && (
+          <div className="mt-6 border-t border-slate-200 pt-6 px-6 pb-6">
+            <Pagination currentPage={page} totalPages={totalPages} baseUrl="/admindp/free-subjects" />
           </div>
         )}
       </div>

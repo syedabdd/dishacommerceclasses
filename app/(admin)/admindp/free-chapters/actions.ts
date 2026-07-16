@@ -46,17 +46,24 @@ export async function deleteChapter(id: number) {
   }
 }
 
-export async function getChapters() {
+export async function getChapters(page: number = 1, limit: number = 20) {
   try {
-    const chapters = await prisma.freeCourseChapter.findMany({
-      include: { course: true, subject: true },
-      orderBy: [
-        { courseId: 'asc' },
-        { subjectId: 'asc' },
-        { displayOrder: 'asc' }
-      ],
-    });
-    return { success: true, data: chapters };
+    const skip = (page - 1) * limit;
+    const [chapters, total] = await Promise.all([
+      prisma.freeCourseChapter.findMany({
+        skip,
+        take: limit,
+        include: { course: true, subject: true },
+        orderBy: [
+          { courseId: 'asc' },
+          { subjectId: 'asc' },
+          { displayOrder: 'asc' }
+        ],
+      }),
+      prisma.freeCourseChapter.count()
+    ]);
+    const totalPages = Math.ceil(total / limit);
+    return { success: true, data: chapters, totalPages };
   } catch (error: any) {
     console.error("Failed to get chapters:", error);
     return { success: false, error: error.message || "Failed to get chapters" };

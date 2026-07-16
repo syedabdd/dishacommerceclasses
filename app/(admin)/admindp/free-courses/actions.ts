@@ -47,12 +47,19 @@ export async function deleteCourse(id: number) {
   }
 }
 
-export async function getCourses() {
+export async function getCourses(page: number = 1, limit: number = 20) {
   try {
-    const courses = await prisma.freeCourse.findMany({
-      orderBy: { displayOrder: 'asc' },
-    });
-    return { success: true, data: courses };
+    const skip = (page - 1) * limit;
+    const [courses, total] = await Promise.all([
+      prisma.freeCourse.findMany({
+        skip,
+        take: limit,
+        orderBy: { displayOrder: 'asc' },
+      }),
+      prisma.freeCourse.count()
+    ]);
+    const totalPages = Math.ceil(total / limit);
+    return { success: true, data: courses, totalPages };
   } catch (error: any) {
     console.error("Failed to get courses:", error);
     return { success: false, error: error.message || "Failed to get courses" };

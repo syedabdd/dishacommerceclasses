@@ -3,13 +3,17 @@
 import { db } from "@/lib/db";
 import { revalidatePath } from "next/cache";
 
-export async function getDoubts() {
+export async function getDoubts(page: number = 1, limit: number = 20) {
   try {
-    const [rows] = await db.execute("SELECT * FROM ask_doubts ORDER BY created_at DESC");
-    return rows as any[];
+    const offset = (page - 1) * limit;
+    const [rows]: any = await db.execute("SELECT * FROM ask_doubts ORDER BY created_at DESC LIMIT ? OFFSET ?", [limit, offset]);
+    const [countResult]: any = await db.execute("SELECT COUNT(*) as total FROM ask_doubts");
+    const total = countResult[0].total;
+    const totalPages = Math.ceil(total / limit);
+    return { success: true, data: rows as any[], totalPages };
   } catch (error) {
     console.error("Error fetching doubts:", error);
-    return [];
+    return { success: false, data: [], totalPages: 1 };
   }
 }
 

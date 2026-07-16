@@ -10,12 +10,18 @@ import { createChapter, getChapters, deleteChapter, updateChapter, getSubjectsBy
 import { getCoursesList } from "../free-subjects/actions";
 import ConfirmDeleteModal from "@/components/admin/ui/ConfirmDeleteModal";
 import TableSkeleton from "@/components/admin/ui/TableSkeleton";
+import { useSearchParams } from "next/navigation";
+import Pagination from "@/components/ui/Pagination";
 
 
 export default function FreeChaptersDashboard() {
+  const searchParams = useSearchParams();
+  const page = parseInt(searchParams.get("page") || "1", 10);
+
   const [chapters, setChapters] = useState<any[]>([]);
   const [courses, setCourses] = useState<any[]>([]);
   const [subjects, setSubjects] = useState<any[]>([]);
+  const [totalPages, setTotalPages] = useState(1);
   const [loading, setLoading] = useState(true);
   
   // Form State
@@ -35,15 +41,18 @@ export default function FreeChaptersDashboard() {
 
   const fetchInitialData = async () => {
     setLoading(true);
-    const [chapRes, crsRes] = await Promise.all([getChapters(), getCoursesList()]);
-    if (chapRes.success) setChapters(chapRes.data || []);
+    const [chapRes, crsRes] = await Promise.all([getChapters(page, 20), getCoursesList()]);
+    if (chapRes.success) {
+      setChapters(chapRes.data || []);
+      setTotalPages(chapRes.totalPages || 1);
+    }
     if (crsRes.success) setCourses(crsRes.data || []);
     setLoading(false);
   };
 
   useEffect(() => {
     fetchInitialData();
-  }, []);
+  }, [page]);
 
   const fetchSubjectsForCourse = async (cId: number) => {
     const res = await getSubjectsByCourse(cId);
@@ -293,6 +302,11 @@ export default function FreeChaptersDashboard() {
                 ))}
               </tbody>
             </table>
+          </div>
+        )}
+        {totalPages > 1 && (
+          <div className="mt-6 border-t border-slate-200 pt-6 px-6 pb-6">
+            <Pagination currentPage={page} totalPages={totalPages} baseUrl="/admindp/free-chapters" />
           </div>
         )}
       </div>

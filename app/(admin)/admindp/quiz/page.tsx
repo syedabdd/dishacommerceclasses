@@ -1,11 +1,15 @@
 import Link from "next/link";
 import { getQuizzes, deleteQuiz } from "./actions";
 import { Pencil, Trash2, Plus } from "lucide-react";
+import Pagination from "@/components/ui/Pagination";
 
 export const dynamic = 'force-dynamic';
 
-export default async function QuizAdminPage() {
-  const quizzes = await getQuizzes();
+export default async function QuizAdminPage({ searchParams }: { searchParams: { page?: string } }) {
+  const page = parseInt(searchParams?.page || "1", 10);
+  const result = await getQuizzes(page, 20);
+  const quizzes = result.success ? result.data : [];
+  const totalPages = result.success ? result.totalPages : 1;
 
   return (
     <div className="p-6">
@@ -74,6 +78,11 @@ export default async function QuizAdminPage() {
           </tbody>
         </table>
       </div>
+      {totalPages > 1 && (
+        <div className="mt-6 flex justify-center">
+          <Pagination currentPage={page} totalPages={totalPages} baseUrl="/admindp/quiz" />
+        </div>
+      )}
     </div>
   );
 }
