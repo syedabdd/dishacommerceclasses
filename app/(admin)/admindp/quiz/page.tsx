@@ -3,10 +3,14 @@ import { getQuizzes, deleteQuiz } from "./actions";
 import { Pencil, Trash2, Plus } from "lucide-react";
 import Pagination from "@/components/ui/Pagination";
 
-export const dynamic = 'force-dynamic';
+type Props = {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+}
 
-export default async function QuizAdminPage({ searchParams }: { searchParams: { page?: string } }) {
-  const page = parseInt(searchParams?.page || "1", 10);
+export default async function QuizAdminPage({ searchParams }: Props) {
+  const resolvedSearchParams = await searchParams;
+  const pageParam = typeof resolvedSearchParams?.page === 'string' ? resolvedSearchParams.page : undefined;
+  const page = parseInt(pageParam || "1", 10);
   const result = await getQuizzes(page, 20);
   const quizzes = result.success ? result.data : [];
   const totalPages = result.success ? result.totalPages : 1;
