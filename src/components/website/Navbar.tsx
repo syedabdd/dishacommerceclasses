@@ -176,10 +176,10 @@ export default function Navbar() {
           {/* Desktop CTA */}
           <a
             href="tel:+917700879453"
-            className="hidden lg:flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white text-sm font-semibold px-4 py-2.5 rounded-xl transition-colors shadow-md shadow-[#1a2e6c]/20"
+            className="hidden lg:flex items-center gap-2 bg-green-600 hover:bg-green-700 text-white text-sm font-semibold px-2.5 xl2:px-4 py-2.5 rounded-xl transition-colors shadow-md shadow-[#1a2e6c]/20"
           >
             <Phone className="w-4 h-4 text-white font-bold" />
-            <span className="text-white">+91 77008 79453</span>
+            <span className="hidden xl2:inline text-white">+91 77008 79453</span>
           </a>
 
           {/* Mobile toggle */}

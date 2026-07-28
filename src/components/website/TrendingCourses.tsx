@@ -207,7 +207,7 @@ export default function TrendingCourses() {
         </div>
 
         {/* Other Courses Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 min-[900px]:grid-cols-3 gap-8">
           {others.map((course) => (
             <div
               key={course.id}

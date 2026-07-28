@@ -4,8 +4,17 @@ import { ChevronRight, GraduationCap, FlaskConical, LineChart, Palette } from 'l
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Free Courses | Disha Commerce Classes',
-  description: 'Select your class and stream to start learning for free.',
+  title: 'Free Commerce Courses | Class 11 & 12 BSEB | Disha Commerce Classes',
+  description: 'Access free Commerce courses for Bihar Board Class 11 & 12. Learn Accountancy, Business Studies, Economics and Mathematics with expert teachers at Disha Commerce Classes.',
+  alternates: {
+    canonical: 'https://www.dishacommerceclasses.com/free-courses',
+  },
+  openGraph: {
+    title: 'Free Commerce Courses | Disha Commerce Classes',
+    description: 'Start learning Commerce for free! Accountancy, Business Studies, Economics courses for BSEB Class 11 & 12 students.',
+    url: 'https://www.dishacommerceclasses.com/free-courses',
+    type: 'website',
+  },
 };
 
 import { getPublicCourses } from './actions';

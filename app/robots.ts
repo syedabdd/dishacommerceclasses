@@ -2,14 +2,21 @@ import { MetadataRoute } from "next";
 
 export default function robots(): MetadataRoute.Robots {
   const baseUrl =
-    process.env.NEXT_PUBLIC_BASE_URL || "https://dishacommerceclasses.com";
+    process.env.NEXT_PUBLIC_BASE_URL || "https://www.dishacommerceclasses.com";
 
   return {
-    rules: {
-      userAgent: "*",
-      allow: "/",
-      disallow: ["/admindp/", "/admin-login/", "/api/"],
-    },
+    rules: [
+      {
+        userAgent: "*",
+        allow: "/",
+        disallow: ["/admindp/", "/admin-login/", "/api/"],
+      },
+      {
+        userAgent: "Googlebot",
+        allow: "/",
+        disallow: ["/admindp/", "/admin-login/", "/api/"],
+      },
+    ],
     sitemap: `${baseUrl}/sitemap.xml`,
   };
 }

@@ -12,6 +12,12 @@ a {
   color: inherit;
 }
 @theme {
+  /* ── Custom breakpoint: lg overridden to 1100px for navbar burger ── */
+  --breakpoint-lg: 1100px;
+  /* ── xl2: 1224px — show phone number text above this width ── */
+  --breakpoint-xl2: 1224px;
+  /* ── desk: 960px — 4-col stats grid on desktop ── */
+  --breakpoint-desk: 960px;
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Outfit", "Inter", ui-sans-serif, system-ui, sans-serif;
 
@@ -227,7 +233,24 @@ body {
 /* ──────────────────────────────────────────────────────────────────
    NAVBAR LINK HOVER — replaces JS onMouseEnter/onMouseLeave
    ────────────────────────────────────────────────────────────────── */
-.nav-link:hover {
-  color: #1a2e6c !important;
-  background-color: rgba(26, 46, 108, 0.05);
+/* ──────────────────────────────────────────────────────────────────
+   STATS GRID — force 4-col on desktop
+   ────────────────────────────────────────────────────────────────── */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 12px;
 }
+@media (min-width: 768px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
+}
+@media (min-width: 960px) {
+  .stats-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+  }
+}
+

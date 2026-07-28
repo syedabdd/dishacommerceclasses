@@ -20,30 +20,34 @@ export const metadata: Metadata = {
 
   title: {
     default:
-      "Disha Commerce Classes | Bihar's Best Online Coaching for Class 11 & 12",
+      "Disha Commerce Classes | Bihar's Best Online Commerce Coaching for Class 11 & 12",
     template: "%s | Disha Commerce Classes",
   },
 
   description:
-    "Disha Commerce Classes is Bihar's leading online coaching platform for Class 11 and 12 Science students. Get expert guidance in Physics, Chemistry, Biology, NCERT preparation, Bihar Board exams, quizzes, notes, blogs, and doubt support.",
+    "Disha Commerce Classes is Bihar's leading online coaching platform for Class 11 and 12 Commerce students. Get expert guidance in Accountancy, Business Studies, Economics, Mathematics, Bihar Board exam preparation, quizzes, notes, blogs, and live doubt support.",
 
   keywords: [
-    "Disha Online Classes",
     "Disha Commerce Classes",
-    "Bihar Board Science Coaching",
-    "Online Science Coaching Bihar",
-    "Class 10 Science Bihar Board",
-    "Class 9 Science Bihar Board",
-    "Class 11 Science Coaching",
-    "Class 12 Science Coaching",
-    "Online Science Classes Bihar",
-    "Physics Coaching Bihar",
-    "Chemistry Coaching Bihar",
-    "Biology Coaching Bihar",
-    "NCERT Science Notes",
-    "Science Quiz",
+    "Disha Online Classes",
+    "Bihar Board Commerce Coaching",
+    "Online Commerce Coaching Bihar",
+    "Class 11 Commerce Coaching Bihar",
+    "Class 12 Commerce Coaching Bihar",
+    "Accountancy Coaching Bihar",
+    "Business Studies Coaching Bihar",
+    "Economics Coaching Bihar",
+    "Mathematics Commerce Bihar",
+    "BSEB Commerce Preparation",
     "Bihar Board Exam Preparation",
+    "Online Commerce Classes Bihar",
+    "Commerce Notes Bihar Board",
+    "Best Commerce Coaching Patna",
+    "Live Commerce Classes Online",
+    "Commerce Quiz Bihar Board",
+    "Free Commerce Courses Bihar",
   ],
+
   alternates: {
     canonical: "https://www.dishacommerceclasses.com",
   },
@@ -60,9 +64,9 @@ export const metadata: Metadata = {
 
   openGraph: {
     title:
-      "Disha Commerce Classes | Bihar's Best Online Coaching for Class 11 & 12",
+      "Disha Commerce Classes | Bihar's Best Online Commerce Coaching for Class 11 & 12",
     description:
-      "Join Bihar's leading online science coaching platform for Class 11 & 12 students. Expert teachers, notes, quizzes, blogs, and complete Bihar Board preparation.",
+      "Join Bihar's leading online Commerce coaching platform for Class 11 & 12 students. Expert teachers, Accountancy, Business Studies, Economics notes, quizzes, live classes, and complete Bihar Board preparation.",
     url: "https://www.dishacommerceclasses.com",
     siteName: "Disha Commerce Classes",
     locale: "en_IN",
@@ -72,7 +76,7 @@ export const metadata: Metadata = {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Disha Commerce Classes",
+        alt: "Disha Commerce Classes — Bihar's Best Commerce Coaching",
       },
     ],
   },
@@ -80,17 +84,24 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title:
-      "Disha Commerce Classes | Bihar's Best Online Coaching for Class 11 & 12",
+      "Disha Commerce Classes | Bihar's Best Online Commerce Coaching for Class 11 & 12",
     description:
-      "Expert online coaching for Bihar Board Science students with notes, quizzes, blogs, and exam preparation.",
+      "Expert online Commerce coaching for Bihar Board students — Accountancy, Business Studies, Economics, live classes, quizzes, notes, and exam preparation.",
     images: ["/og-image.jpg"],
   },
 
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
 };
+
 
 export default function RootLayout({
   children,
@@ -138,16 +149,28 @@ export default function RootLayout({
                   "@id": "https://www.dishacommerceclasses.com/#organization",
                   name: "Disha Commerce Classes",
                   url: "https://www.dishacommerceclasses.com",
-                  logo: "https://www.dishacommerceclasses.com/Logo.PNG",
+                  logo: {
+                    "@type": "ImageObject",
+                    url: "https://www.dishacommerceclasses.com/Logo.PNG",
+                    width: 200,
+                    height: 200,
+                  },
                   sameAs: [
                     "https://www.youtube.com/@DishaOnlineClasses",
                     "https://www.facebook.com/dishaonlineclasses",
+                    "https://www.instagram.com/dishaonlineclasses",
                   ],
+                  contactPoint: {
+                    "@type": "ContactPoint",
+                    telephone: "+91-7700879453",
+                    contactType: "customer service",
+                    availableLanguage: ["Hindi", "English"],
+                  },
                 },
                 {
                   "@type": "LocalBusiness",
                   "@id": "https://www.dishacommerceclasses.com/#localbusiness",
-                  name: "Disha Online Classes",
+                  name: "Disha Commerce Classes",
                   image: "https://www.dishacommerceclasses.com/Logo.PNG",
                   url: "https://www.dishacommerceclasses.com",
                   telephone: "+917700879453",
@@ -157,14 +180,24 @@ export default function RootLayout({
                     addressRegion: "Bihar",
                     addressCountry: "IN",
                   },
-                  priceRange: "$$",
-                  category: "Science Coaching Institute",
+                  priceRange: "₹₹",
+                  category: "Commerce Coaching Institute",
+                  description: "Bihar's leading online Commerce coaching for Class 11 & 12 (BSEB). Expert guidance in Accountancy, Business Studies, Economics & Mathematics.",
                 },
                 {
                   "@type": "WebSite",
                   "@id": "https://www.dishacommerceclasses.com/#website",
                   url: "https://www.dishacommerceclasses.com",
                   name: "Disha Commerce Classes",
+                  description: "Bihar's best online Commerce coaching platform for Class 11 & 12 BSEB students.",
+                  potentialAction: {
+                    "@type": "SearchAction",
+                    target: {
+                      "@type": "EntryPoint",
+                      urlTemplate: "https://www.dishacommerceclasses.com/blog?q={search_term_string}",
+                    },
+                    "query-input": "required name=search_term_string",
+                  },
                   publisher: {
                     "@id": "https://www.dishacommerceclasses.com/#organization",
                   },

@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import Image from "next/image";
 
 export default function Hero({ banners }: { banners?: any[] }) {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -35,19 +36,28 @@ export default function Hero({ banners }: { banners?: any[] }) {
       <div className="relative w-full">
         <div className="relative w-full overflow-hidden">
           <AnimatePresence mode="wait">
-            <motion.img
+            <motion.div
               key={currentIndex}
-              src={displayBanners[currentIndex].image_url || displayBanners[currentIndex].src}
-              alt={`Banner ${currentIndex + 1}`}
               initial={{ opacity: 0, x: 100 }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: -100 }}
               transition={{
                 duration: 0.6,
-                ease: [0.25, 1, 0.5, 1], // Professional smooth spring-like easing
+                ease: [0.25, 1, 0.5, 1],
               }}
-              className="w-full h-auto block"
-            />
+              className="w-full"
+            >
+              <Image
+                src={displayBanners[currentIndex].image_url || displayBanners[currentIndex].src}
+                alt={displayBanners[currentIndex].alt || `Disha Commerce Classes Banner ${currentIndex + 1}`}
+                width={1200}
+                height={500}
+                className="w-full h-auto block"
+                priority={currentIndex === 0}
+                quality={85}
+                unoptimized={false}
+              />
+            </motion.div>
           </AnimatePresence>
 
           {/* Desktop Arrows */}
