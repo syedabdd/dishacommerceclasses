@@ -381,12 +381,12 @@ const Footer = () => {
           variants={containerVariants as any}
           initial="hidden"
           animate={inView ? "show" : "hidden"}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12 xl:gap-16"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-10 sm:gap-8 md:gap-6 lg:gap-8 xl:gap-12"
         >
           {/* ── Column 1: Brand ── */}
           <motion.div
             variants={itemVariants as any}
-            className="sm:col-span-2 lg:col-span-1"
+            className="sm:col-span-2 md:col-span-2"
           >
             {/* Logo */}
             <div className="flex items-center gap-3 mb-5">

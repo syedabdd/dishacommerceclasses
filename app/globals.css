@@ -12,8 +12,7 @@ a {
   color: inherit;
 }
 @theme {
-  /* ── Custom breakpoint: lg overridden to 1100px for navbar burger ── */
-  --breakpoint-lg: 1100px;
+
   /* ── xl2: 1224px — show phone number text above this width ── */
   --breakpoint-xl2: 1224px;
   /* ── desk: 960px — 4-col stats grid on desktop ── */
