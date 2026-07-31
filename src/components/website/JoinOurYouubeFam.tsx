@@ -8,7 +8,7 @@ import { motion } from "framer-motion";
 const channels = [
   {
     name: "Disha Commerce Classes",
-    subscribers: "173K+ Subs",
+    subscribers: "178K+ Subs",
     url: "https://youtube.com",
     featured: true,
   },

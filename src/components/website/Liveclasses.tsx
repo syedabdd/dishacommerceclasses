@@ -105,10 +105,10 @@ export default function LiveClasses() {
         {/* Loading */}
         {loading ? (
           <div className="flex flex-col lg:flex-row gap-6 animate-pulse">
-            <div className="w-full lg:w-2/3 h-[300px] md:h-[500px] bg-slate-800 rounded-3xl" />
+            <div className="w-full lg:w-2/3 aspect-video bg-slate-800 rounded-3xl" />
             <div className="w-full lg:w-1/3 flex flex-col gap-6">
               {[1, 2].map((i) => (
-                <div key={i} className="h-[240px] bg-slate-800 rounded-3xl" />
+                <div key={i} className="aspect-video bg-slate-800 rounded-3xl" />
               ))}
             </div>
           </div>
@@ -119,48 +119,49 @@ export default function LiveClasses() {
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="w-full lg:w-2/3"
+              className="w-full lg:w-2/3 flex"
             >
               <a
                 href={videos[0].link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group relative block rounded-3xl overflow-hidden shadow-2xl border border-slate-800 h-full min-h-[300px] md:min-h-[500px]"
+                className="group flex flex-col w-full rounded-3xl overflow-hidden shadow-2xl border border-slate-800 bg-slate-900/80 hover:bg-slate-900 transition-colors h-full"
               >
-                <div className="absolute inset-0 bg-slate-900">
+                {/* Thumbnail Area (16:9 perfectly) */}
+                <div className="relative w-full aspect-video overflow-hidden bg-black">
                   <img
                     src={videos[0].thumbnail}
                     alt={videos[0].title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-80 group-hover:opacity-100"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-90 group-hover:opacity-100"
                   />
-                </div>
-
-                {/* Cinematic Gradient */}
-                <div className="absolute inset-0 bg-linear-to-t from-slate-950 via-slate-900/40 to-transparent" />
-
-                {/* Big Play Button */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-24 h-24 rounded-full bg-red-600/20 backdrop-blur-md border border-red-600/50 flex items-center justify-center group-hover:scale-110 group-hover:bg-red-600 transition-all duration-500 shadow-[0_0_40px_rgba(192,32,42,0.3)]">
-                    <Play size={40} className="text-white fill-white ml-2" />
+                  <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors duration-500" />
+                  
+                  {/* Big Play Button Overlay */}
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-red-600/90 backdrop-blur-md border border-red-500/50 flex items-center justify-center group-hover:scale-110 group-hover:bg-red-600 transition-all duration-500 shadow-[0_0_40px_rgba(192,32,42,0.6)]">
+                      <Play className="w-8 h-8 md:w-10 md:h-10 text-white fill-white ml-2" />
+                    </div>
                   </div>
                 </div>
 
-                {/* Info */}
-                <div className="absolute bottom-0 left-0 right-0 p-8 md:p-10">
-                  <div className="flex items-center gap-3 mb-4">
-                    <span className="px-3 py-1 rounded-full bg-slate-800/80 backdrop-blur text-slate-300 text-sm font-medium flex items-center gap-2">
-                      <Video className="w-4 h-4 text-red-600" /> Commerce Board
+                {/* Content Area */}
+                <div className="p-6 md:p-8 flex flex-col grow justify-center">
+                  <div className="flex flex-wrap items-center gap-3 mb-4">
+                    <span className="px-3 py-1.5 rounded-xl bg-slate-800/80 border border-slate-700 text-slate-300 text-xs md:text-sm font-medium flex items-center gap-2">
+                      <Video className="w-4 h-4 text-red-500" /> Commerce Board
                     </span>
-                    <span className="px-3 py-1 rounded-full bg-slate-800/80 backdrop-blur text-slate-300 text-sm font-medium flex items-center gap-2">
-                      <Clock className="w-4 h-4 text-red-600" /> 1h 45m
+                    <span className="px-3 py-1.5 rounded-xl bg-slate-800/80 border border-slate-700 text-slate-300 text-xs md:text-sm font-medium flex items-center gap-2">
+                      <Clock className="w-4 h-4 text-red-500" /> 1h 45m
                     </span>
                   </div>
-                  <h3 className="text-2xl md:text-4xl font-bold text-white mb-3 leading-tight line-clamp-2">
+                  <h3 className="text-xl md:text-3xl font-bold text-white mb-4 leading-snug group-hover:text-red-500 transition-colors line-clamp-2">
                     {videos[0].title}
                   </h3>
-                  <div className="flex items-center gap-2 text-red-600">
-                    <GraduationCap size={20} />
-                    <span className="font-semibold text-lg">
+                  <div className="flex items-center gap-2.5 text-slate-400">
+                    <div className="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center">
+                      <GraduationCap className="w-4 h-4 text-slate-300" />
+                    </div>
+                    <span className="font-medium text-sm md:text-base">
                       {videos[0].teacher}
                     </span>
                   </div>
@@ -180,34 +181,35 @@ export default function LiveClasses() {
                   href={video.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group relative flex flex-col rounded-3xl overflow-hidden shadow-lg border border-slate-800 bg-slate-900/50 hover:bg-slate-800 transition-colors h-full min-h-[220px]"
+                  className="group flex flex-col rounded-3xl overflow-hidden shadow-lg border border-slate-800 bg-slate-900/60 hover:bg-slate-900 transition-colors h-full"
                 >
-                  {/* Thumbnail Half */}
-                  <div className="h-[140px] relative overflow-hidden">
+                  {/* Thumbnail Area (16:9 perfectly) */}
+                  <div className="relative w-full aspect-video overflow-hidden bg-black shrink-0">
                     <img
                       src={video.thumbnail}
                       alt={video.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-70 group-hover:opacity-100"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-80 group-hover:opacity-100"
                     />
-                    <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors" />
+                    <div className="absolute inset-0 bg-black/30 group-hover:bg-black/10 transition-colors duration-500" />
                     <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="w-12 h-12 rounded-full bg-white/20 backdrop-blur border border-white/30 flex items-center justify-center group-hover:scale-110 transition-transform">
+                      <div className="w-12 h-12 rounded-full bg-red-600/90 backdrop-blur border border-red-500/50 flex items-center justify-center group-hover:scale-110 transition-transform shadow-[0_0_20px_rgba(192,32,42,0.4)]">
                         <Play
-                          size={20}
-                          className="text-white fill-white ml-1"
+                          className="w-5 h-5 text-white fill-white ml-1"
                         />
                       </div>
                     </div>
                   </div>
 
-                  {/* Info Half */}
-                  <div className="p-5 flex flex-col grow justify-center">
-                    <h4 className="text-white font-bold line-clamp-2 mb-2 group-hover:text-red-600 transition-colors">
+                  {/* Info Area */}
+                  <div className="p-5 flex flex-col grow justify-between gap-3">
+                    <h4 className="text-white font-bold text-base md:text-lg leading-snug line-clamp-2 group-hover:text-red-500 transition-colors">
                       {video.title}
                     </h4>
-                    <div className="flex items-center gap-2 text-slate-400 text-sm">
-                      <GraduationCap size={16} />
-                      <span>{video.teacher}</span>
+                    <div className="flex items-center gap-2.5 text-slate-400 text-sm mt-auto">
+                      <div className="w-6 h-6 rounded-full bg-slate-800 flex items-center justify-center">
+                        <GraduationCap className="w-3 h-3 text-slate-300" />
+                      </div>
+                      <span className="truncate">{video.teacher}</span>
                     </div>
                   </div>
                 </motion.a>
@@ -220,13 +222,13 @@ export default function LiveClasses() {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="mt-8 flex justify-center lg:hidden"
+          className="mt-10 flex justify-center lg:hidden"
         >
           <a
             href="https://www.youtube.com/@DishaOnlineClasses"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2  !text-white hover:text-white transition-colors font-bold px-6 py-3 rounded-full border border-red-600/30 bg-red-600/10"
+            className="flex items-center justify-center gap-2 w-full sm:w-auto text-white font-bold px-8 py-4 rounded-xl border border-red-600/30 bg-red-600 hover:bg-red-700 transition-colors shadow-lg shadow-red-600/20"
           >
             View All Classes <ArrowRight className="w-5 h-5" />
           </a>

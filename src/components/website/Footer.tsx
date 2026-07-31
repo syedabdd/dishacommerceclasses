@@ -180,7 +180,12 @@ const Footer = () => {
 
   const socials = [
     { Icon: FacebookIcon, label: "Facebook", url: "#", color: "#1877f2" },
-    { Icon: InstagramIcon, label: "Instagram", url: "#", color: "#e4405f" },
+    {
+      Icon: InstagramIcon,
+      label: "Instagram",
+      url: "https://www.instagram.com/dishaonlineclasses?igsh=MWM2NDU1djlmYjZjMg==",
+      color: "#e4405f",
+    },
     {
       Icon: YoutubeIcon,
       label: "YouTube",

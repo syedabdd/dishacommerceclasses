@@ -10,7 +10,6 @@ import {
   BookOpen,
   Star,
 } from "lucide-react";
-import Image from "next/image";
 
 const courses = [
   {
@@ -86,19 +85,19 @@ export default function TrendingCourses() {
 
   return (
     <section
-      className="relative py-20 overflow-hidden"
+      className="relative py-16 overflow-hidden"
       style={{ backgroundColor: "var(--bg-page)" }}
     >
-      <div className="relative max-w-7xl mx-auto px-4">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="flex flex-col lg:items-center lg:justify-center text-center gap-4 mb-14">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#c0202a]/20 bg-[#c0202a]/10 text-[#c0202a] text-xs font-bold uppercase tracking-wider mx-auto shadow-sm">
-            <Flame className="w-4 h-4 fill-current" />
+        <div className="flex flex-col items-center justify-center text-center gap-3 mb-10">
+          <div className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full border border-[#c0202a]/20 bg-[#c0202a]/10 text-[#c0202a] text-xs font-bold uppercase tracking-widest shadow-sm">
+            <Flame className="w-3.5 h-3.5 fill-[#c0202a]" />
             Most Enrolled
           </div>
 
           <h2
-            className="text-4xl md:text-5xl font-black leading-tight"
+            className="text-3xl md:text-4xl lg:text-5xl font-black leading-tight tracking-tight"
             style={{ color: "var(--text-primary)" }}
           >
             Explore Our{" "}
@@ -114,80 +113,92 @@ export default function TrendingCourses() {
             </span>
           </h2>
           <p
-            className="text-lg max-w-xl mx-auto"
+            className="text-base md:text-lg max-w-xl mx-auto mt-1"
             style={{ color: "var(--text-secondary)" }}
           >
-            Unlock your potential with Bihar's top-rated expert commerce
-            faculties.
+            Unlock your potential with Bihar's top-rated expert faculties and
+            premium study materials.
           </p>
         </div>
 
         {/* Featured Course (Horizontal Layout) */}
         <div
           onClick={() => window.open(featured?.link, "_blank")}
-          className="group cursor-pointer relative overflow-hidden rounded-[40px] bg-[var(--bg-card)] border border-[var(--border-color)] shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 mb-10 flex flex-col lg:flex-row items-center gap-8 p-6 lg:p-10"
+          className="group cursor-pointer relative overflow-hidden rounded-[1.5rem] bg-[var(--bg-card)] border border-[var(--border-color)] shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-1 mb-10 flex flex-col lg:flex-row items-center p-3 gap-5 lg:gap-8 max-w-5xl mx-auto"
         >
           {/* Shine Effect */}
-          <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none">
-            <div className="absolute -left-40 top-0 h-full w-40 rotate-12 bg-white/20 blur-2xl group-hover:left-[120%] transition-all duration-1000 ease-in-out" />
+          <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 pointer-events-none z-30">
+            <div className="absolute -left-40 top-0 h-full w-40 rotate-12 bg-white/20 blur-xl group-hover:left-[150%] transition-all duration-[1.5s] ease-in-out" />
           </div>
 
-          <div className="lg:w-1/2 relative bg-linear-to-br from-slate-100 to-[#c0202a]/5 rounded-3xl p-6 flex items-center justify-center w-full h-[300px] lg:h-[400px]">
+          {/* Image Side - Perfectly Fitting */}
+          <div className="lg:w-[45%] w-full relative rounded-xl overflow-hidden bg-slate-900/5 dark:bg-slate-900 flex items-center justify-center shrink-0">
             {/* Badge */}
-            <div className="absolute top-4 left-4 z-20">
+            <div className="absolute top-3 left-3 z-20">
               <div
-                className="flex items-center gap-2 px-4 py-2 rounded-full text-white text-xs font-bold shadow-xl backdrop-blur-md"
-                style={{ backgroundColor: "#c0202a" }}
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-white text-[10px] font-black tracking-wider uppercase shadow-md backdrop-blur-md border border-white/20"
+                style={{ backgroundColor: "rgba(192, 32, 42, 0.9)" }}
               >
-                <Zap className="w-3 h-3 fill-current" />
+                <Zap className="w-3 h-3 fill-current text-yellow-300" />
                 {featured.badge}
               </div>
             </div>
+
             <img
               src={featured.image}
-              alt="Course"
+              alt="Featured Course"
               loading="lazy"
-              className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-105 drop-shadow-2xl"
+              className="w-full h-auto object-contain transition-transform duration-700 group-hover:scale-[1.02] opacity-95 group-hover:opacity-100"
             />
           </div>
 
-          <div className="lg:w-1/2 flex flex-col justify-center text-left space-y-6">
-            <div
-              className="flex items-center gap-4 text-sm font-semibold"
-              style={{ color: "var(--text-muted)" }}
-            >
-              <span className="flex items-center gap-1 text-[#c0202a] bg-[#c0202a]/10 px-3 py-1 rounded-full">
-                <Star className="w-4 h-4 fill-current" /> {featured.rating}{" "}
-                Rating
+          {/* Content Side */}
+          <div className="lg:w-[55%] w-full flex flex-col justify-center text-left px-2 pb-3 lg:p-5 lg:pl-0">
+            <div className="flex flex-wrap items-center gap-2.5 text-xs font-semibold mb-3">
+              <span className="flex items-center gap-1 text-[#c0202a] bg-[#c0202a]/10 px-3 py-1.5 rounded-lg border border-[#c0202a]/20">
+                <Star className="w-3.5 h-3.5 fill-[#c0202a]" />{" "}
+                {featured.rating} Rating
               </span>
-              <span className="flex items-center gap-1 bg-slate-100 px-3 py-1 rounded-full">
-                <BookOpen className="w-4 h-4 text-slate-500" />{" "}
-                {featured.students} Students
-              </span>
+              {/* <span className="flex items-center gap-1 bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700">
+                <BookOpen className="w-3.5 h-3.5 opacity-70" /> {featured.students} Enrolled
+              </span> */}
             </div>
 
             <h3
-              className="text-3xl lg:text-4xl font-extrabold leading-tight"
+              className="text-2xl lg:text-3xl font-black leading-snug mb-3 group-hover:text-[#1a2e6c] transition-colors"
               style={{ color: "var(--text-primary)" }}
             >
               {featured.title}
             </h3>
+
             <p
-              className="text-lg leading-relaxed"
+              className="text-sm lg:text-[15px] leading-relaxed mb-5 line-clamp-2 lg:line-clamp-3"
               style={{ color: "var(--text-secondary)" }}
             >
               {featured.desc}
             </p>
 
-            <ul className="space-y-3">
+            <ul className="space-y-2.5 mb-6">
               {featured.features?.map((f, i) => (
                 <li
                   key={i}
-                  className="flex items-center gap-3 font-medium"
+                  className="flex items-center gap-2.5 font-semibold text-[13px] lg:text-[14px]"
                   style={{ color: "var(--text-secondary)" }}
                 >
-                  <div className="w-6 h-6 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0">
-                    ✓
+                  <div className="w-5 h-5 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center shrink-0 border border-emerald-200">
+                    <svg
+                      className="w-3 h-3"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={3}
+                        d="M5 13l4 4L19 7"
+                      />
+                    </svg>
                   </div>
                   {f}
                 </li>
@@ -195,57 +206,60 @@ export default function TrendingCourses() {
             </ul>
 
             <button
-              className="self-start mt-4 px-8 py-4 rounded-xl text-white font-bold transition-all duration-300 hover:shadow-lg flex items-center gap-2"
+              className="self-start px-6 py-3 rounded-xl text-white font-black text-[14px] transition-all duration-300 shadow-md shadow-[#1a2e6c]/20 flex items-center gap-2 group-hover:scale-105 active:scale-95"
               style={{
-                background: "linear-gradient(135deg, #1a2e6c 0%, #c0202a 100%)",
+                background: "linear-gradient(135deg, #1a2e6c 0%, #2a469c 100%)",
               }}
             >
-              Explore Full Course{" "}
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              Explore Course
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
             </button>
           </div>
         </div>
 
         {/* Other Courses Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 min-[900px]:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
           {others.map((course) => (
             <div
               key={course.id}
               onClick={() => window.open(course.link, "_blank")}
-              className="group cursor-pointer relative overflow-hidden rounded-3xl bg-[var(--bg-card)] border border-[var(--border-color)] shadow-md hover:shadow-xl transition-all duration-500 hover:-translate-y-2 flex flex-col"
+              className="group cursor-pointer relative overflow-hidden rounded-[1.25rem] bg-[var(--bg-card)] border border-[var(--border-color)] shadow-md hover:shadow-xl transition-all duration-500 hover:-translate-y-1 flex flex-col"
             >
-              <div className="absolute top-4 left-4 z-20">
+              <div className="absolute top-3 left-3 z-20">
                 <div
-                  className="flex items-center gap-2 px-3 py-1.5 rounded-full text-white text-xs font-bold shadow-md"
-                  style={{ backgroundColor: "#1a2e6c" }}
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-white text-[10px] font-black uppercase tracking-wider shadow-md backdrop-blur-md border border-white/20"
+                  style={{ backgroundColor: "rgba(26, 46, 108, 0.9)" }}
                 >
-                  <PlayCircle className="w-3 h-3" />
+                  <PlayCircle className="w-3.5 h-3.5" />
                   {course.badge}
                 </div>
               </div>
 
-              <div className="h-[240px] bg-linear-to-br from-slate-50 via-white to-slate-100 flex items-center justify-center p-4">
+              {/* Perfectly Fitting Image */}
+              <div className="w-full relative overflow-hidden bg-slate-900/5 dark:bg-slate-900 flex items-center justify-center border-b border-[var(--border-color)]">
                 <img
                   src={course.image}
-                  alt="Course"
+                  alt={course.title}
                   loading="lazy"
-                  className="w-full h-full object-contain transition-transform duration-700 group-hover:scale-110"
+                  className="w-full h-auto object-contain transition-transform duration-700 group-hover:scale-[1.03] opacity-95 group-hover:opacity-100"
                 />
               </div>
 
-              <div className="p-6 flex flex-col grow">
-                <div className="flex items-center gap-2 text-xs font-semibold mb-3 text-[#c0202a]">
-                  <Star className="w-4 h-4 fill-current" /> {course.rating}{" "}
+              <div className="p-5 flex flex-col grow">
+                <div className="flex items-center gap-1.5 text-[11px] font-bold mb-3 text-[#c0202a] bg-[#c0202a]/10 self-start px-2.5 py-1 rounded-md border border-[#c0202a]/20">
+                  <Star className="w-3 h-3 fill-[#c0202a]" /> {course.rating}{" "}
                   Rating
                 </div>
+
                 <h4
-                  className="text-xl font-bold mb-2 line-clamp-2"
+                  className="text-[17px] font-black mb-2 line-clamp-2 leading-snug group-hover:text-[#1a2e6c] transition-colors"
                   style={{ color: "var(--text-primary)" }}
                 >
                   {course.title}
                 </h4>
+
                 <p
-                  className="text-sm line-clamp-2 mt-auto"
+                  className="text-[13px] leading-relaxed line-clamp-2 mt-auto font-medium opacity-80"
                   style={{ color: "var(--text-secondary)" }}
                 >
                   {course.desc}
@@ -254,7 +268,7 @@ export default function TrendingCourses() {
 
               {/* Bottom Border Accent */}
               <div
-                className="h-1 w-0 group-hover:w-full transition-all duration-500"
+                className="absolute bottom-0 left-0 h-1 w-0 group-hover:w-full transition-all duration-700 ease-out"
                 style={{
                   background: "linear-gradient(90deg, #1a2e6c, #c0202a)",
                 }}
