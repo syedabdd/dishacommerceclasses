@@ -3,7 +3,7 @@ import Dashboard from "@/components/admin/Dashboard";
 
 export default async function AdminPage() {
   let totalDoubts = 0;
-  let studyMaterials = 0;
+  let freeCourses = 0;
   let liveVisitors = 0;
   let todaysTraffic = 0;
   const recentFeedback: any[] = [];
@@ -15,10 +15,10 @@ export default async function AdminPage() {
     );
     totalDoubts = Number(doubtsResult[0]?.count) || 0;
 
-    const [materialsResult]: any = await db.execute(
-      "SELECT COUNT(*) as count FROM blogs"
+    const [coursesResult]: any = await db.execute(
+      "SELECT COUNT(*) as count FROM FreeCourse"
     );
-    studyMaterials = Number(materialsResult[0]?.count) || 0;
+    freeCourses = Number(coursesResult[0]?.count) || 0;
   } catch (err) {
     console.error("[AdminPage] Error fetching core metrics:", err);
   }
@@ -42,7 +42,7 @@ export default async function AdminPage() {
 
   return (
     <Dashboard
-      metrics={{ totalDoubts, studyMaterials, liveVisitors, todaysTraffic }}
+      metrics={{ totalDoubts, freeCourses, liveVisitors, todaysTraffic }}
       recentFeedback={recentFeedback}
     />
   );

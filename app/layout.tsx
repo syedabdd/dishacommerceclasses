@@ -100,6 +100,16 @@ export const metadata: Metadata = {
       "max-snippet": -1,
     },
   },
+
+  icons: {
+    icon: [
+      { url: "/icon.png", type: "image/png", sizes: "192x192" },
+      { url: "/favicon.svg", type: "image/svg+xml" },
+    ],
+    apple: [
+      { url: "/icon.png", type: "image/png", sizes: "192x192" },
+    ],
+  },
 };
 
 
