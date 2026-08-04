@@ -148,16 +148,16 @@ export default function StudyMaterial() {
         <div className="flex flex-col lg:flex-row gap-10">
           {/* Sidebar Navigation */}
           <div className="lg:w-1/4">
-            <div className="sticky top-24 flex flex-row lg:flex-col gap-2 overflow-x-auto pb-4 lg:pb-0 scrollbar-hide">
+            <div className="sticky top-24 flex flex-row lg:flex-col gap-3 overflow-x-auto pb-4 lg:pb-0 px-1 pt-1 -ml-1 scrollbar-hide">
               {materials.map((cat) => (
                 <button
                   key={cat.category}
                   onClick={() => setActiveCategory(cat.category)}
-                  className={`flex items-center justify-between px-5 py-4 rounded-xl font-bold transition-all whitespace-nowrap text-left border
+                  className={`flex items-center justify-between px-5 py-4 rounded-xl font-bold transition-all whitespace-nowrap text-left border-2
                       ${
                         activeCategory === cat.category
-                          ? "shadow-md scale-105"
-                          : "opacity-70 hover:opacity-100 hover:bg-slate-50"
+                          ? "shadow-md lg:translate-x-1"
+                          : "border-transparent opacity-70 hover:opacity-100 hover:bg-slate-50"
                       }
                     `}
                   style={{
